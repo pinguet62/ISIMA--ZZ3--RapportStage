@@ -1,0 +1,112 @@
+\thispagestyle{empty}
+
+\makeatletter % début d'utilisation des variables @
+
+
+
+\begin{multicols}{2}
+	\begin{flushleft}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%% Haut-Gauche %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+		% Logo école
+		\includegraphics[scale=0.09]{img/ISIMA_logo.png}					\\
+		
+		% Nom école
+		\textbf{I}nstitut \textbf{S}upérieur								\\
+		d'\textbf{I}nformatique, de											\\
+		\textbf{M}odélisation et de											\\
+		leurs \textbf{A}pplications	
+		
+		\vspace*{0.5cm}
+		
+		% Adresse école
+		BP 10125															\\
+		63173 Aubière Cedex
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	\end{flushleft}
+\columnbreak
+	\begin{flushright}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%% Haut-Droite %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	\end{flushright}
+\end{multicols}
+
+\vspace*{\fill}
+
+\begin{center}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%% Centre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	% Informations
+	\Large
+	Rapport d'ingénieur													\\
+	Projet de 3\up{ème} année											\\
+	\textit{Filière :} Génie Logiciel et Systèmes Informatiques			\\
+	\textit{Filière :} Réseaux et Télécommunications
+	
+	\rule{16cm}{2pt}													\\
+	\vspace*{0.35cm}
+	
+	% Titre du projet
+	\huge
+	\textbf{\@title}													\\
+
+	\rule{16cm}{2pt}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{center}
+	
+\vspace*{\fill}
+
+\begin{multicols}{2}
+	\vspace*{\fill}
+	% Bas-Gauche : Auteurs + Encadreur
+	\begin{flushleft}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%% Bas-Gauche %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+		% Auteur & Encadrants
+		\begin{minipage}{0.7\textwidth} % à adapter en fonction du contenu
+			\textit{Présenté par :} \@author
+		\end{minipage}
+		
+		\mbox{\textit{Sous la direction de :} Loïc YON}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	\end{flushleft}
+\columnbreak
+	\vspace*{\fill}
+	
+	\begin{flushright}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%% Bas-Droite %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		% Date
+		\@date
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	\end{flushright}
+\end{multicols}
+
+
+
+\makeatother % fin d'utilisation des variables @

@@ -1,0 +1,211 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+	a4paper,	% feuille A4
+	twoside,	% impression Recto-Verso
+	11 pt		% taille de police
+]{report}		% type de document
+
+
+%%%%%%%%%% Extensions %%%%%%%%%%
+\usepackage[utf8]{inputenc}		% encodage des caractères
+\usepackage[T1]{fontenc}		% nouvelle norme de codage
+\usepackage[francais]{babel}	% langue française
+%\usepackage{lscape}				% format paysage
+\usepackage{multicol}			% multi-colonnes
+\usepackage{graphicx}			% images
+%\usepackage{float}				% insertion d'image avec l'option "H"
+%\usepackage{textcomp}			% signe €
+%\usepackage{ulem}				% souligner
+
+
+%%%%%%%%%% Marges %%%%%%%%%%
+\usepackage[
+	tmargin = 2.5 cm,	% haut
+	bmargin = 5 cm,		% bas
+	lmargin = 2.5 cm,	% gauche
+	rmargin = 2.5 cm	% droite
+]{geometry}
+
+
+%%%%%%%%%% Inter-ligne %%%%%%%%%%
+\usepackage{setspace}
+\onehalfspacing			% 1.5
+
+
+%%%%%%%%%% Code source %%%%%%%%%%
+%\usepackage{listings}
+%\lstset{
+%	showstringspaces = false,	% masquer les espaces
+%	tabsize = 4,				% nombre d'espace par tabulation
+%	basicstyle = \ttfamily,		% caractères de même taille
+%	xleftmargin = 30 pt,		% marge à gauche
+%	xrightmargin = 0 pt,		% marge à droite
+%	aboveskip = -1 pt,			% espace au dessus de la zone
+%	belowskip = -1 pt			% espace en dessous de la zone
+%}
+
+
+%%%%%%%%%% Informations %%%%%%%%%%
+\title{Stage à Sopra Group}
+\author{\href{mailto:pinguet62@gmail.com}{Julien PINGUET}}
+\date{Avril-Septembre 2013}
+
+
+%%%%%%%%%% Liens %%%%%%%%%%
+\usepackage{hyperref}
+\hypersetup{ 			% Options : http://forum.ubuntu-fr.org/viewtopic.php?id=81505%29
+	backref = true,
+	pagebackref = true,	% dans bibliographie
+	pdfborder = {0 0 0}	% retirer le cadre
+}
+
+
+%%%%%%%%%% Glossaire %%%%%%%%%%
+%\usepackage{glossaries}
+%\makeglossaries
+%\input{src/glossaire}
+
+
+%%%%%%%%%% En-tête et Pied de page %%%%%%%%%%
+\usepackage{fancyhdr}
+\input{src/en_tete-pied_de_page}
+% Pas d'en-tête dans la table des matières
+\makeatletter
+\renewcommand{\tableofcontents}{
+	\chapter*{\contentsname}
+	\thispagestyle{empty}
+	\@starttoc{toc}}
+\makeatother
+
+
+%%%%%%%%%% Notes de bas de page %%%%%%%%%%
+\usepackage[bottom]{footmisc}	% Collé au bas de page
+
+
+%%%%%%%%%% Numérotation des parties %%%%%%%%%%
+\setcounter{secnumdepth}{3}		% corps
+\setcounter{tocdepth}{3}		% table des matières
+
+
+%%%%%%%%%% Espacement des parties %%%%%%%%%%
+\usepackage{titlesec}
+\titlespacing*{\chapter}
+	{0pt}							% retrait à gauche
+	{0pt}							% espace avant
+	{10pt}							% espace après
+\titlespacing*{\section}
+	{0pt}							% retrait à gauche
+	{40pt plus 10pt minus 10pt}		% espace avant
+	{10pt}							% espace après
+\titlespacing*{\subsection}
+	{0pt}							% retrait à gauche
+	{30pt plus 10pt minus 10pt}		% espace avant
+	{10pt}							% espace après
+\titlespacing*{\subsubsection}
+	{0pt}							% retrait à gauche
+	{20pt plus 10pt minus 10pt}		% espace avant
+	{10pt}							% espace après
+
+
+%%%%%%%%%% En-tête de chapitre %%%%%%%%%%
+% Numérotation des chapitres en chiffres romains
+\renewcommand{\thechapter}{\Roman{chapter}}
+
+% Format des titres de chapitre
+\makeatletter							% début d'utilisation des variables @
+\def\@makechapterhead#1{
+	\vspace*{50\p@} {					% espace vertical incompressible
+		\parindent \z@					% indentation
+		\Huge							% grande taille
+		\bfseries						% texte gras
+		% Si le chapitre porte un numéro
+		\ifnum \m@ne < \c@secnumdepth	% secnumdepth : profondeur dans la table des matières
+			\thechapter					% numéro de chapitre
+			\quad						% espace horizontal moyen
+		\fi
+		#1								% argument : nom de chapitre
+		\par
+		\nobreak						% empécher le saut de page/ligne
+	}
+	\vskip 40\p@						% espace vertical 
+}
+\makeatother							% fin d'utilisation des variables @
+
+% Format des titres de paragraphe
+\newcommand\Jparagraph[1]{	%
+	\paragraph{#1}			%
+	~\par					% retour à la ligne + alinéa
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Contenu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\sloppy	% ajuster correctement le texte
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}	% titre chapitre
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}	% titre section
+\pagestyle{empty}
+
+%%%%%%%%%% Page de garde %%%%%%%%%%
+\input{src/page_de_garde}
+
+%%%%%%%%%% Remerciements %%%%%%%%%%
+\input{src/remerciements}
+
+%%%%%%%%%% Glossaire %%%%%%%%%%
+%\printglossary
+
+%%%%%%%%%% Résumé %%%%%%%%%%
+\input{src/resume}
+
+%%%%%%%%%% Abstract %%%%%%%%%%
+\input{src/abstract}
+
+%%%%%%%%%% Table des figures %%%%%%%%%%
+\cleardoublepage
+\pagestyle{empty}
+\listoffigures
+\thispagestyle{empty}
+
+%%%%%%%%%% Table des matières %%%%%%%%%%
+\cleardoublepage
+\pagestyle{empty}
+\tableofcontents
+\thispagestyle{empty}
+
+%%%%%%%%%% Corps du rapport %%%%%%%%%%
+\cleardoublepage
+\pagestyle{corps}
+\pagenumbering{arabic} % pagination en chiffres arabes
+
+%%%%%%%%%% Introduction %%%%%%%%%%
+\input{src/introduction}
+\newpage
+\thispagestyle{empty} % Bug : entête ce la liste des figures...
+
+%%%%%%%%%% Chapitre 1 %%%%%%%%%%
+\input{src/partie_1}
+
+%%%%%%%%%% Chapitre 2 %%%%%%%%%%
+\input{src/partie_2}
+
+%%%%%%%%%% Chapitre 3 %%%%%%%%%%
+\input{src/partie_3}
+
+%%%%%%%%%% Conclusion %%%%%%%%%%
+\input{src/conclusion}
+
+\clearpage
+\pagestyle{empty}
+\cleardoublepage
+
+%%%%%%%%%% Bibliographie %%%%%%%%%%
+%\input{src/bibliographie}
+
+\end{document}
