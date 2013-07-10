@@ -1,5 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Configuration %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[
@@ -70,15 +72,13 @@
 
 
 %%%%%%%%%% En-tête et Pied de page %%%%%%%%%%
-\usepackage{fancyhdr}
 \input{src/en_tete-pied_de_page}
+
 % Pas d'en-tête dans la table des matières
-\makeatletter
-\renewcommand{\tableofcontents}{
-	\chapter*{\contentsname}
-	\thispagestyle{empty}
-	\@starttoc{toc}}
-\makeatother
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+% Pas d'en-tête dans la table des figures
+%\addtocontents{lof}{\protect\thispagestyle{empty}}
 
 
 %%%%%%%%%% Notes de bas de page %%%%%%%%%%
@@ -110,11 +110,11 @@
 	{10pt}							% espace après
 
 
-%%%%%%%%%% En-tête de chapitre %%%%%%%%%%
+%%%%%%%%%% Format des titres %%%%%%%%%%
 % Numérotation des chapitres en chiffres romains
 \renewcommand{\thechapter}{\Roman{chapter}}
 
-% Format des titres de chapitre
+% Format des chapitre
 \makeatletter							% début d'utilisation des variables @
 \def\@makechapterhead#1{
 	\vspace*{50\p@} {					% espace vertical incompressible
@@ -134,7 +134,7 @@
 }
 \makeatother							% fin d'utilisation des variables @
 
-% Format des titres de paragraphe
+% Format des paragraphe
 \newcommand\Jparagraph[1]{	%
 	\paragraph{#1}			%
 	~\par					% retour à la ligne + alinéa
@@ -142,15 +142,23 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Contenu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Rapport %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
 \sloppy	% ajuster correctement le texte
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}	% titre chapitre
-\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}	% titre section
-\pagestyle{empty}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}	% titre chapitre : "III." plutôt que "Chapitre III."
+%\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}	% titre section
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Début de l'accompagnement %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{encadrement}
+\pagenumbering{roman}
 
 %%%%%%%%%% Page de garde %%%%%%%%%%
 \input{src/page_de_garde}
@@ -169,25 +177,25 @@
 
 %%%%%%%%%% Table des figures %%%%%%%%%%
 \cleardoublepage
-\pagestyle{empty}
 \listoffigures
-\thispagestyle{empty}
 
 %%%%%%%%%% Table des matières %%%%%%%%%%
 \cleardoublepage
-\pagestyle{empty}
 \tableofcontents
+
+\clearpage
 \thispagestyle{empty}
 
-%%%%%%%%%% Corps du rapport %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Contenu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \cleardoublepage
 \pagestyle{corps}
-\pagenumbering{arabic} % pagination en chiffres arabes
+\pagenumbering{arabic}
 
 %%%%%%%%%% Introduction %%%%%%%%%%
 \input{src/introduction}
-\newpage
-\thispagestyle{empty} % Bug : entête ce la liste des figures...
 
 %%%%%%%%%% Chapitre 1 %%%%%%%%%%
 \input{src/partie_1}
@@ -202,10 +210,32 @@
 \input{src/conclusion}
 
 \clearpage
-\pagestyle{empty}
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Fin de l'accompagnement %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \cleardoublepage
+\pagestyle{encadrement}
+\pagenumbering{roman}
+\setcounter{page}{24}
 
 %%%%%%%%%% Bibliographie %%%%%%%%%%
-%\input{src/bibliographie}
+\input{src/bibliographie}
+
+\clearpage
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Annexes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\pagestyle{annexe}
+\pagenumbering{Roman}
+
+%%%%%%%%%% Annexe %%%%%%%%%%
+\input{src/annexe}
 
 \end{document}
