@@ -58,7 +58,7 @@ Ce document comporte une base de donnée ainsi qu'une interface de saisie.
 
 Cette solution comporte de nombreux inconvénients.
 
-Tout d'abord, la saisie des données est fastidieuse car l'ergonomie est très sommaire : les champs sont disposés de manière désordonnée sur la page.
+Tout d'abord, la saisie des données est fastidieuse car l'ergonomie est très sommaire : les champs sont disposés de manière désordonnée sur la page. Par exemple lorsque l'utilisateur doit saisir un établissement de travail, il doit saisir son code exacte, sans commettre d'erreur.
 
 Les fonctionnalités sont limitées, et se limitent principalement à la saisie.
 
@@ -70,4 +70,10 @@ Les fonctionnalités sont limitées, et se limitent principalement à la saisie.
 
 \subsection{Solution envisagée}
 
-TODO
+En étudiant la solution actuelle, les chefs de projet ont réfléchis à la meilleure solution qui corrigerait ses inconvénients, et apporterait de nouveaux avantages.
+\\
+
+
+Il es tout débord nécessaire de changer de base de données pour se tourner vers un système plus performant. Comme le groupe Limagain est tourné vers les technologies Microsoft, il a été décidé d'utiliser \textit{Microsoft SQL Server}.
+
+Pour améliorer l'ergonomie de l'application, la nouvelle solution sera un \textit{client léger}. En effet, nous ne seront pas confrontés aux problèmes de performances qu'offre cette solution, et en cas de défaillance du serveur l'application sera inutilisable dans tous les cas du fait que la base de données y sera centralisée. Ainsi, un simple site web offre les avantages d'un déploiement unique, d'une maintenance simple.
