@@ -10,6 +10,30 @@
 
 \section{Technologies utilisées}
 
+Le groupe Limagrain travaille dans un environnement Micosoft et utilise leurs technologies et logiciels, comme par exemple : Windows, Internet Explorer, Outlook, etc.
+
+Pour développer la solution nous nous sommes donc tourné vers les technologies Microsoft pour faciliter la compatibilité et l'intégration des composants.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Langage de programmation}
+
+\textit{.NET} est une plateforme application proposée par Microsoft. Cette technologie est comparable et directement concurrente de Java d'Oracle.
+
+Ce framework propose de nombreux composants :
+\begin{enumerate}
+\item Plusieurs environnements d'exécution. Un moteur d'exécution permettant la compilation du code source, et qui sera à son tour compilé "à la volée" pour être exécuté dans la machine virtuelle. Un environnement d'exécution de services et d'applications web, appelé ASP .NET. Et enfin un environnement d'exécution d'applications lourdes, appelé WinForms.
+\item Un kit de développement, aussi appelé Software Development Kit (SDK), fournissant une bibliothèque de classes aux développeurs.
+\end{enumerate}
+
+
+
+La solution sera développée dans un langage Microsoft
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -22,7 +46,21 @@
 
 % TODO: licence : ce choix car licence déjà achetée pour d'autres ?
 
-Le groupe Limagrain travaille dans un environnement Micosoft et utilisent leurs technologies et logiciels suivants : Windows, Internet Explorer, Outlook, etc.
+TODO
+Ainsi une base de donnée de type Microsoft SQL Server, dans sa version 2008 R2, a été décidée pour héberger l'ensemble des données de l'application.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Mapping de la base de données}
+
+Le \textit{modèle relationnel} est utilisé dans les systèmes de gestion de base de données (SGBD) pour rassembler un ensemble d'informations. Les données (clés) sont dupliquées entre les tables et l'accès aux relations s'effectue ensuite grâce à des jointures entre les tables.
+
+Le \textit{modèle objet}, quant à lui, est utilisé dans la programmation orientée objet. Les données sont modélisées sous la formes d'objets, entités complexes ayant des comportements et des relations entre elles.
 \\
 
-Ainsi une base de donnée de type Microsoft SQL Server, dans sa version 2008 R2, a été décidée pour héberger l'ensemble des données de l'application.
+
+Le \textit{mapping objet-relationnel} consiste à interfacer le modèle relationnel d'une base de données avec le modèle orienté objet d'un programme informatique. Généralement, une classe modélisera une table, et attribut d'objet modélisera un champ d'une table, avec un type similaire (par exemple String (TODO: code source) pour varchar (TODO: code source)).
+\\
+
+
+Cette opération peut être faite à l'aide d'un framework (TODO: glossaire), permettent de s'abstraire de la base de données, automatisant et réduisant ainsi la duplication de code. L'objectif est de faciliter le développement, augmenter la maintenabilité du programme, ou encore s'abstenir du type de base de données (Oracle, SQL Server, PostgreSQL, \ldots).
