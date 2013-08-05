@@ -22,22 +22,29 @@ TODO
 
 L'architecture d'une application est importante, car cela définie sa maintenabilité et son l'évolutivité. De plus cela permet la séparation des problèmes diminuant ainsi la complexité.
 
-Notre application est divisée en 3 couches, appelé 3-tiers, qui est le modèle multi-tiers le plus utilisé. Cela permet de séparer le modèle de données, la partie business et l'interface de l'utilisateur. La figure \ref{architecture_3_tiers} représente la séparation de ces différentes couches. Dans cette partie je présenterai ces différentes couches, en détaillant leurs fonctions, leurs interactions et les technologies utilisées.
+Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est le modèle multi-tiers le plus utilisé. Cela permet de séparer l'accès aux données de la base, la partie métier effectuant les traitements, et l'interface de l'utilisateur. La figure \ref{architecture_3_tiers} représente la séparation de ces différentes couches. Dans cette partie je présenterai ces différentes couches, en détaillant leurs fonctions, leurs interactions et les technologies utilisées.
 %\begin{figure}[!h]
 %	\center
 %	\includegraphics[width=2cm]{img/architecture_3_tiers.png}
 %	\caption{Architecture 3 tiers}
 %	\label{architecture_3_tiers}
 %\end{figure}
+~~\\
 
+Le groupe Limagrain travaille dans un environnement Micosoft et utilise ainsi leurs technologies et logiciels, comme par exemple : Windows pour le système d'exploitation, Internet Explorer comme navigateur internet, Outlook comme messagerie, \ldots
+
+Pour développer cette solution nous nous sommes donc tourné vers les technologies Microsoft, facilitant ainsi la compatibilité et l'intégration des composants.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Socle}
 
-La solution développée se base sur un socle existé, développé dans le cadre d'un autre projet. Ceci nous a permis un gain de temps important car une partie importante du projet n'a du être développé à nouveau.
+% TODO: socle = framework ?
+La solution développée se base sur un socle existant, développé dans le cadre d'un autre projet. Ceci nous a permis un gain de temps important car une partie importante du projet n'a du être développé à nouveau. En contre partie, les différentes technologies utilisées, qui seront présentées dans cette partie, nous ont été imposées.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Gestion des utilisateurs}
 
@@ -46,9 +53,15 @@ Le socle permet une gestion des utilisateurs de l'application. Il est possible d
 
 Le \textit{LDAP}, pour Lightweight Directory Access Protocol, est un protocole standard de gestion d'utilisateurs. Son objectif est de centraliser les informations des utilisateurs (nom, identifiant, mot de passe, \ldots) dans un annuaire.
 
-Le principal avantage de cette solution est la mise en commun des comptes utilisateurs, ce qui permet l'utilisateur d'un seul et même compte pour tous les services connectés.
+Le principal avantage de cette solution est la mise en commun des comptes utilisateurs, ce qui permet l'utilisateur d'un seul et même compte pour tous les services connectés : Windows, la boite mail Outlook, cette application, \ldots. La figure \ref{LDAP} représente l'interaction des applications avec un LDAP.
+%\begin{figure}[!h]
+%	\center
+%	\includegraphics[width=2cm]{img/LDAP.png}
+%	\caption{Schéma d'un LDAP}
+%	\label{LDAP}
+%\end{figure}
 
-TODO: schéma LDAP central et solutions connectées
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Gestion des droits}
 
@@ -57,9 +70,9 @@ Il est aussi possible de gérer des droits dans l'application grâce à ce socle
 
 Chaque écran de l'application peut avoir leur accès ou certaines actions restreintes en fonction d'un \textit{droit}. Ceux-ci peuvent prendre trois valeur : 
 \begin{itemize}
-  \item "aucun accès", par défaut, qui interdit tout accès à l'écran ;
-  \item "lecture" n'autorise que l'accès à l'écran, avec la possibilité d'effectuer des recherches ou d'afficher les détails ;
-  \item "lecture et écriture" autorise toutes les actions possibles.
+	\item "aucun accès", par défaut, qui interdit tout accès à l'écran ;
+	\item "lecture" n'autorise que l'accès à l'écran, avec la possibilité d'effectuer des recherches ou d'afficher les détails ;
+	\item "lecture et écriture" autorise toutes les actions possibles.
 \end{itemize}
 
 Un \textit{profil} est un ensemble de droits, qui permet de définir un périmètre d'action. Par exemple un profil "administrateur" aura tous les droits dans l'application, un profil "manager" n'aura que des droits de lecture, ou encore un profil "ressource humaine" possèdera les droits liés aux candidats et contrats, \ldots
@@ -74,6 +87,35 @@ La figure \ref{utilisateur_profils_droits} représente le schéma UML des utilis
 %	\caption{Utilisation des profils et droits des utilisateurs}
 %	\label{utilisateur_profils_droits}
 %\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Langage de programmation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Microsoft .NET Framework}
+
+\textit{.NET Framework} est une plateforme application proposée par Microsoft. Cette technologie est comparable et directement concurrente de Java d'Oracle.
+
+Ce framework est constitués de nombreux composants, disposés en couches au fur et à mesure de ses versions, schématisés sur la figure \ref{.NET_Framework} :
+\begin{enumerate}
+	\item Le moteur d'exécution appelé Common Language Runtime (CLR) permet de compiler le code course en un langage intermédiaire appelé Microsoft Intermediate Language (MSIL). Ce code est ensuite compilé à la volée lors de la première exécution grâce au compilateur "Just In Time" (JIT) ;
+	\item Une bibliothèque de classes, offrant des fonctionnalités de base pour les différentes applications ;
+	\item Plusieurs couches supplémentaires proposant des outils de développement d'interfaces graphique (WinForms), d'accès aux données (ADO.NET (Entity Framework)), \ldots
+%	\item Une couche de trois composants : WinForms (ou Windows Forms) pour le développement d'interfaces graphiques, ASP.NET permettant la création de sites web dynamiques, et ADO.NET pour l'accès aux bases de données ;
+%	\item La version 3.0 apporte Windows Presentation Foundation (WPF) permettant le développement d'applications graphiques vectorielles basées sur le XML, Windows Communication Foundation (WCF) pour la communication, Windows Workflow Foundation (WF) une technologie de gestion des workflow, et enfin Windows CardSpace pour la gestion d'identités ;
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{VB.NET}
+
+\textit{Visual Basic .NET} est un langage de programmation développé par Microsoft. Il s'agit d'une évolution majeure de Visual Basic 6, introduisant l'aspect orienté objet. De plus, le code est compilé dans un langage intermédiaire, appelé Common Intermediate Language (CIL), au même titre que les autres langages fonctionnant sur la machine virtuelle .Net. Ce langage est très proche du C\#, à la syntaxe près.
+
+Le projet a été développé dans ce langage, aussi bien la couche métier que dans la couche présentation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,11 +202,13 @@ La figure \ref{WCF_RIA_Services} représente les échanges entre la partie clien
 
 \subsection{Interface utilisateur}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Silverlight}
 
-Microsoft \textit{Silverlight} est un plugin pour navigateur web, permettant le développement d'applications riches. Le but est de pousser plus loin l'expérience utilisateur du web 2.0. Initialement prévu pour fonctionner dans un navigateur, les programmes peuvent être installés directement sur l'ordinateur ("out of browser"), et permettent de développer des application pour Windows Phone 7.
+Microsoft \textit{Silverlight} est un plugin pour navigateur web. Il permet le développement d'applications riches et de pousser plus loin l'expérience utilisateur du web 2.0, au même titre qu'Adobe Flash dont il se veut une alternative. Initialement prévu pour des applications web dans un navigateur, les programmes peuvent être téléchargées pour être utilisés directement sur l'ordinateur ("out of browser"), et permettent aussi le développement d'applications pour Windows Phone 7.
 
-Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble de Microsoft .NET Framework. L'avantage est d'être cross-browser (Internet Explorer, Firefox, Chrome, \ldots) et cross-platform (Windows, OS-X et Linux, via le projet open-source Moonlight). Les applications fonctionnent donc dans une "sandbox" (bac a sable) qui permet de garantir une sécurité pour l'utilisateur et le serveur.
+Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble de Microsoft .NET Framework. Les applications sont ainsi cross-browser (Internet Explorer, Firefox, Chrome, \ldots) et cross-platform (Windows, OS-X et Linux, via le projet open-source Moonlight). De plus les applications fonctionnent dans une "sandbox" ("bac a sable") ce qui permet de garantir une sécurité accrue pour l'utilisateur et le serveur.
 
 
 
@@ -176,24 +220,6 @@ Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble 
 
 
 
-Le groupe Limagrain travaille dans un environnement Micosoft et utilise ainsi leurs technologies et logiciels, comme par exemple : Windows, Internet Explorer, Outlook, etc.
-
-Pour développer cette solution nous nous sommes donc tourné vers les technologies Microsoft pour faciliter la compatibilité et l'intégration des composants.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Langage de programmation}
-
-\textit{.NET} est une plateforme application proposée par Microsoft. Cette technologie est comparable et directement concurrente de Java d'Oracle.
-
-Ce framework propose de nombreux composants :
-\begin{enumerate}
-\item Plusieurs environnements d'exécution. Un moteur d'exécution permettant la compilation du code source, et qui sera à son tour compilé "à la volée" pour être exécuté dans la machine virtuelle. Un environnement d'exécution de services et d'applications web, appelé ASP .NET. Et enfin un environnement d'exécution d'applications lourdes, appelé WinForms.
-\item Un kit de développement, aussi appelé Software Development Kit (SDK), fournissant une bibliothèque de classes aux développeurs.
-\end{enumerate}
 
 
 
-La solution sera développée dans un langage Microsoft
