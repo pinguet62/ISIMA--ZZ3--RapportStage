@@ -166,8 +166,10 @@
 %%%%%%%%%% Remerciements %%%%%%%%%%
 \input{src/remerciements}
 
-%%%%%%%%%% Glossaire %%%%%%%%%%
-%\printglossary
+%%%%%%%%%% Table des figures %%%%%%%%%%
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
 
 %%%%%%%%%% Résumé %%%%%%%%%%
 \input{src/resume}
@@ -175,13 +177,14 @@
 %%%%%%%%%% Abstract %%%%%%%%%%
 \input{src/abstract}
 
-%%%%%%%%%% Table des figures %%%%%%%%%%
-\cleardoublepage
-\listoffigures
-
 %%%%%%%%%% Table des matières %%%%%%%%%%
 \cleardoublepage
+\addcontentsline{toc}{chapter}{\contentsname}
 \tableofcontents
+
+%%%%%%%%%% Glossaire %%%%%%%%%%
+%\printglossary
+\input{src/glossaire}
 
 \clearpage
 \thispagestyle{empty}

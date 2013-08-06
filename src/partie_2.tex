@@ -8,9 +8,38 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{L'aspect fonctionnel}
+\section{L'équipe du projet}
 
-TODO
+Pour réaliser ce projet, j'ai été intégré dans une petite équipe de trois personnes.
+
+Un chef de projet qui est le relai entre Sopra Group et Limagrain affin d'établir la compréhension du besoin fonctionnel et technique. Sa charge est d'une demi-journée par semaine. De plus, il est chargé de la rédaction des spécifications de l'application. Pour des raisons de délais trop courts et charges limitées, ces spécifications ont été réalisées en parallèle du développement, malgré l'éloignement des bonnes pratiques.
+
+Un architecte a pour objectif de suivre le développeur, conseillant les outils, technologies et méthodes utilisées. Sa charge sur le projet est aussi d'une demi-journée par semaine.
+
+Et enfin moi même, en tant que développeur, en charge du développement de l'application, à plein temps.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{La relation client}
+
+TODO: détails assistance et différence avec projet (?)
+
+Le projet s'est réalisé en \textit{assistance technique}. Il n'y a aucune date de livré imposée, par contre la charge (nombre de jours d'interventions) totale est fixe.
+
+J'ai travaillé à raison de trois jours chez le client Limagrain et deux jour au siège de Sopra Group, profitant ainsi de la proximité du client pour éclaircir les points ambigus.
+\\
+
+La relation directe avec le client m'a permis de définir le besoin du client au cours des différentes étapes du projet.
+
+La première étape a consisté à établir le modèle de données. Pour cela il a fallu étudier la solution existante pour déterminer les informations à mémoriser, leur type, les contraintes, ainsi que les liens entre eux. Cette partie est importante car la structure de l'application est fortement liée a ce modèle.
+
+Deuxièmement, j'ai réalisé une première version de l'interface graphique de l'application. L'objectif est de proposer une première maquette au client qui pourra effectuer des critiques. L'ergonomie de la solution s'est ainsi optimisé au fur et à mesure des démonstrations.
+
+Enfin, une fois l'application fonctionnelle, il était nécessaire d'importer les données existantes dans la nouvelle de données. Comme ces deux bases de données sont différentes, il était nécessaire d'être en contact avec le client pour faire correspondre les schémas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,6 +156,18 @@ Une \textit{base de données} permet de stocker un grand nombre d'informations a
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsubsection{PowerAMC}
+
+\textit{PowerAMC}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase. Il permet d'établir facilement un modèle de données à partir de son interface graphique visible sur la figure \ref{PowerAMC} TODO: ici
+%\begin{figure}[!h]
+%	\center
+%	\includegraphics[width=2cm]{img/PowerAMC.png}
+%	\caption{Interface de PowerAMC}
+%	\label{PowerAMC}
+%\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{SQL Server 2008}
 
 Il existe de nombreux système de gestion de base de données : Oracle, MySQL, PostgreSQL, \ldots Nous avons utilisé \textit{Microsoft SQL Server}, dans sa version 2008 R2, par demande du client.
@@ -176,9 +217,6 @@ L'échange d'informations entre le client et le serveur se fait par sérialisati
 
 \textit{Windows Communication Foundation}, couramment appelé sous ses initiales WCF, est la couche de communication de .NET Framework. Cette technologie respecte les normes standards des services web, ce qui lui permet d'appeler ou d'être appelé par des technologies différentes (Java, Python, \ldots).
 
-(TODO: aucun rapport avec WCF, mais plutôt Silverlight ?)
-Les différents appels du service web se font de façon asynchrone : le client n'attend pas la réponse du serveur pour continuer son traitement. Cette solution permet de ne pas bloquer l'interface de l'utilisateur, qui pourrait penser à un plantage de l'application. Mais l'inconvénient est l'augmentation de la complexité de programmation car il est nécessaire de contrôler plusieurs fils d'exécution en parallèle.
-
 
 \Jparagraph{WCF RIA Services}
 
@@ -210,16 +248,10 @@ Microsoft \textit{Silverlight} est un plugin pour navigateur web. Il permet le d
 
 Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble de Microsoft .NET Framework. Les applications sont ainsi cross-browser (Internet Explorer, Firefox, Chrome, \ldots) et cross-platform (Windows, OS-X et Linux, via le projet open-source Moonlight). De plus les applications fonctionnent dans une "sandbox" ("bac a sable") ce qui permet de garantir une sécurité accrue pour l'utilisateur et le serveur.
 
+Une des spécifications de Silverlight est l'impossibilité d'appeler des services web de manière synchrone, c'est à dire que la fonction appelante attend la réponse. En effet, lors d'un appel l'exécution continue et une événement est émis lors de la réception de la réponse. Cette solution permet de ne pas bloquer l'interface de l'utilisateur, qui pourrait penser à un plantage de l'application. Mais l'inconvénient est l'augmentation de la complexité de programmation car il est nécessaire de contrôler plusieurs fils d'exécution en parallèle.
 
-
-
-
-
-
------------------------------------------
-
-
-
-
-
-
+~~\\-----------------------------
+Reporting services
+Parler des versions ?
+SignalR
+Log4Net
