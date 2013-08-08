@@ -49,6 +49,20 @@ Enfin, une fois l'application fonctionnelle, il était nécessaire d'importer le
 
 \section{Technologies et architecture}
 
+Dans cette section je vous présenterai les différentes technologies utilisées dans le projet ainsi que leurs interactions. La figure \ref{architecture} schématise les différents composants et communications.
+%\begin{figure}[!h]
+%	\center
+%	\includegraphics[width=2cm]{img/architecture.png}
+%	\caption{Architecture du projet}
+%	\label{architecture}
+%\end{figure}
+~~\\
+
+Le groupe Limagrain travaille dans un environnement Micosoft et utilise ainsi leurs technologies et logiciels, comme par exemple : Windows pour le système d'exploitation, Internet Explorer comme navigateur internet, Outlook comme messagerie, \ldots
+
+Pour développer cette solution nous nous sommes donc tourné vers les technologies Microsoft, facilitant ainsi la compatibilité et l'intégration des composants.
+\\
+
 L'architecture d'une application est importante, car cela définie sa maintenabilité et son l'évolutivité. De plus cela permet la séparation des problèmes diminuant ainsi la complexité.
 
 Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est le modèle multi-tiers le plus utilisé. Cela permet de séparer l'accès aux données de la base, la partie métier effectuant les traitements, et l'interface de l'utilisateur. La figure \ref{architecture_3_tiers} représente la séparation de ces différentes couches. Dans cette partie je présenterai ces différentes couches, en détaillant leurs fonctions, leurs interactions et les technologies utilisées.
@@ -58,11 +72,6 @@ Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est l
 %	\caption{Architecture 3 tiers}
 %	\label{architecture_3_tiers}
 %\end{figure}
-~~\\
-
-Le groupe Limagrain travaille dans un environnement Micosoft et utilise ainsi leurs technologies et logiciels, comme par exemple : Windows pour le système d'exploitation, Internet Explorer comme navigateur internet, Outlook comme messagerie, \ldots
-
-Pour développer cette solution nous nous sommes donc tourné vers les technologies Microsoft, facilitant ainsi la compatibilité et l'intégration des composants.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,13 +207,10 @@ Microsoft propose plusieurs framework, et c'est \textit{Entity Framework} qui a 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Fonction}
+\subsubsection{Client-Serveur}
 
 La couche de \textit{service} est la partie métier de l'application. Cela permet de séparer le code source lié à l'affichage destiné à l'utilisateur, du code métier effectuant des manipulations dans la base de données.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection{Client-Serveur}
 
 \Jparagraph{Web service}
 
@@ -233,6 +239,28 @@ La figure \ref{WCF_RIA_Services} représente les échanges entre la partie clien
 %	\caption{Fonctionnement de l'application client-serveur}
 %	\label{WCF_RIA_Services}
 %\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Reporting services}
+
+Microsoft fourni un outil de génération de rapports appelés \textit{Reporting services}. C'est un outil de la suite SQL Server. Un rapport se présente sous la forme d'un fichier XML. Visual Studio propose un éditeur graphique simplifiant son édition, la mise en forme ainsi que la création de requêtes.
+
+Le fonctionnement du service est représenté par la figure \ref{reporting_services} et se déroule en plusieurs étapes :
+%\begin{figure}[!h]
+%	\center
+%	\includegraphics[width=2cm]{img/reporting_services.png}
+%	\caption{Fonctionnement de reporting services}
+%	\label{reporting_services}
+%\end{figure}
+\begin{enumerate}
+	\item On appelle le service à l'aide de son adresse IP ou son nom de domaine. Il est possible de passer des paramètres dans l'URL en utilisant la méthode GET. Par exemple, si le service est accessible à l'URL \lstinline{http://nomserveur/reports/}, l'appel de \lstinline{http://nomserveur/reports/ID=5&name=toto} permet de spécifier les paramètres \lstinline{ID} et \lstinline{name} avec les valeurs respectives \lstinline{5} et \lstinline{toto}.
+	\item Le serveur effectue les requêtes nécessaires dans la base de données afin de récupérer les données dynamiques du rapport.
+	\item Le rapport est généré puis retourné au client au format HTML, PDF ou autre.
+\end{enumerate}
+~~\\
+
+Ce type de service a été utilisé dans le projet. Il est ainsi facile de générer les divers documents à imprimer avec les informations correspondantes aux contrats et candidats. Le serveur de rapports est installé sur la même machine que celle de la base de données, pour ne pas avoir à installer inutilement SQL Server, mais aussi parce que tous les serveurs sont installés sur la même machine par économie.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
