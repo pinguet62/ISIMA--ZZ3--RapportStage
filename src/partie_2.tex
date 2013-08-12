@@ -156,6 +156,12 @@ Ce framework est constitués de nombreux composants, disposés en couches au fur
 Le projet a été développé dans ce langage, aussi bien la couche métier que dans la couche présentation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Apache log4net}
+
+TODO
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -285,11 +291,16 @@ Un projet "Web Silverlight" est composée de deux parties : un projet purement S
 Le projet web est réalisé en \textit{ASP.NET}. C'est une technologie Microsoft de programmation web, permettant de créer des sites dynamiques. Il est inclus
 TODO: IIS
 
+\subsubsection{SignalR}
+
+Le temps réel dans une application web permet au client de recevoir des données au moment où elles sont publiées. Un exemple courant est une discussion instantanée : le serveur doit informer le client lors de la réception d'un message.
+
+Avant l'apparition du HTML5, il était nécessaire d'utiliser des techniques JavaScript en envoyant continuellement des requêtes du client vers le serveur. Le HTML5 a apporté cette fonctionnalité grâce aux \textit{WebSocket}, canal de communication bidirectionnel entre un navigateur web et un serveur web.
+
+Microsoft fourni une bibliothèque intégrée à ASP.NET appelée \textit{SignalR} (TODO: footer) permettant l'ajout de fonctionnalités de temps réel dans une application web. Elle est basée sur les WebSocket et du JavaScript, facilitant ainsi son utilisation.
+
+TODO: barre de chargement ?
 
 ~~\\--------------------------------------------------
 
-Reporting services
-Parler des versions ?
-SignalR
-Log4Net
-3 modules : candidats, contrat, paramétrage
+3 modules : candidats, contrat, paramétrage partie 3)
