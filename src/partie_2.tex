@@ -26,16 +26,23 @@ Et enfin moi même, en tant que développeur, en charge du développement de l'a
 
 \section{La relation client}
 
-TODO: détails assistance et différence avec projet (?)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Assistance technique}
+
+% TODO: détails assistance et différence avec projet (?)
 
 Le projet s'est réalisé en \textit{assistance technique}. Il n'y a aucune date de livré imposée, par contre la charge (nombre de jours d'interventions) totale est fixe.
 
 J'ai travaillé à raison de trois jours chez le client Limagrain et deux jour au siège de Sopra Group, profitant ainsi de la proximité du client pour éclaircir les points ambigus.
-\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Définition du besoin}
 
 La relation directe avec le client m'a permis de définir le besoin du client au cours des différentes étapes du projet.
 
-La première étape a consisté à établir le modèle de données. Pour cela il a fallu étudier la solution existante pour déterminer les informations à mémoriser, leur type, les contraintes, ainsi que les liens entre eux. Cette partie est importante car la structure de l'application est fortement liée a ce modèle.
+La première étape a consisté à établir le modèle de données. Pour cela il a fallu étudier la solution existante pour déterminer les informations à mémoriser, leur type, les contraintes, ainsi que les liens entre elles. Cette partie est importante car la structure de l'application est fortement liée a ce modèle.
 
 Deuxièmement, j'ai réalisé une première version de l'interface graphique de l'application. L'objectif est de proposer une première maquette au client qui pourra effectuer des critiques. L'ergonomie de la solution s'est ainsi optimisé au fur et à mesure des démonstrations.
 
@@ -65,7 +72,7 @@ Pour développer cette solution nous nous sommes donc tourné vers les technolog
 
 L'architecture d'une application est importante, car cela définie sa maintenabilité et son l'évolutivité. De plus cela permet la séparation des problèmes diminuant ainsi la complexité.
 
-Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est le modèle multi-tiers le plus utilisé. Cela permet de séparer l'accès aux données de la base, la partie métier effectuant les traitements, et l'interface de l'utilisateur. La figure \ref{architecture_3_tiers} représente la séparation de ces différentes couches. Dans cette partie je présenterai ces différentes couches, en détaillant leurs fonctions, leurs interactions et les technologies utilisées.
+Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est le modèle multi-tiers le plus utilisé. Cela permet de séparer l'accès aux données de la base, la partie métier effectuant les traitements, et l'interface de l'utilisateur, comme le représente la figure \ref{architecture_3_tiers}.
 %\begin{figure}[!h]
 %	\center
 %	\includegraphics[width=2cm]{img/architecture_3_tiers.png}
@@ -80,7 +87,7 @@ Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est l
 \subsection{Socle}
 
 % TODO: socle = framework ?
-La solution développée se base sur un socle existant, développé dans le cadre d'un autre projet. Ceci nous a permis un gain de temps important car une partie importante du projet n'a du être développé à nouveau. En contre partie, les différentes technologies utilisées, qui seront présentées dans cette partie, nous ont été imposées.
+La solution développée se base sur un socle existant, développé dans le cadre d'un autre projet. Ceci nous a permis un gain de temps important car une partie importante du projet n'a du être développé à nouveau. En contre partie, les différentes technologies utilisées nous ont été imposées.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -91,19 +98,13 @@ Le socle permet une gestion des utilisateurs de l'application. Il est possible d
 
 Le \textit{LDAP}, pour Lightweight Directory Access Protocol, est un protocole standard de gestion d'utilisateurs. Son objectif est de centraliser les informations des utilisateurs (nom, identifiant, mot de passe, \ldots) dans un annuaire.
 
-Le principal avantage de cette solution est la mise en commun des comptes utilisateurs, ce qui permet l'utilisateur d'un seul et même compte pour tous les services connectés : Windows, la boite mail Outlook, cette application, \ldots. La figure \ref{LDAP} représente l'interaction des applications avec un LDAP.
-%\begin{figure}[!h]
-%	\center
-%	\includegraphics[width=2cm]{img/LDAP.png}
-%	\caption{Schéma d'un LDAP}
-%	\label{LDAP}
-%\end{figure}
+Le principal avantage de cette solution est la mise en commun des comptes utilisateurs, ce qui permet l'utilisateur d'un seul et même compte pour tous les services connectés : Windows, la boite mail Outlook, cette application, \ldots.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Gestion des droits}
 
-Il est aussi possible de gérer des droits dans l'application grâce à ce socle. L'objectif est de contrôler les accès et les actions aux utilisateurs ayant le droit, pour protéger les informations confidentielles.
+Il est aussi possible de gérer des droits dans l'application grâce à ce socle. L'administrateur peut ainsi contrôler les accès et les actions des utilisateurs, protégeant ainsi les informations confidentielles.
 \\
 
 Chaque écran de l'application peut avoir leur accès ou certaines actions restreintes en fonction d'un \textit{droit}. Ceux-ci peuvent prendre trois valeur : 
@@ -151,7 +152,7 @@ Ce framework est constitués de nombreux composants, disposés en couches au fur
 
 \subsubsection{VB.NET}
 
-\textit{Visual Basic .NET} est un langage de programmation développé par Microsoft. Il s'agit d'une évolution majeure de Visual Basic 6, introduisant l'aspect orienté objet. De plus, le code est compilé dans un langage intermédiaire, appelé Common Intermediate Language (CIL), au même titre que les autres langages fonctionnant sur la machine virtuelle .Net. Ce langage est très proche du C\#, à la syntaxe près.
+\textit{Visual Basic .NET} est un langage de programmation développé par Microsoft. Il s'agit d'une évolution majeure de Visual Basic 6, introduisant notamment l'aspect orienté objet. De plus, le code est compilé dans le langage intermédiaire que les différents langages fonctionnant sur la machine virtuelle .Net. Ce langage est très proche du C\#, à la syntaxe près.
 
 Le projet a été développé dans ce langage, aussi bien la couche métier que dans la couche présentation.
 
@@ -159,7 +160,11 @@ Le projet a été développé dans ce langage, aussi bien la couche métier que 
 
 \subsubsection{Apache log4net}
 
-TODO
+% TODO: pourquoi ce logger ?
+
+Les \textit{log} sont les informations mémorisées lors du fonctionnement d'un programme informatique. Ils permettent de garder des traces d'exécution, notamment lors du démarrage, de l'arrêt, ou d'erreurs. Les log peuvent faciliter le débogage et la recherche d'anomalies. Un ou plusieurs fichiers texte sont générés donnant accès à ces informations.
+
+Le framework \textit{log4net} (TODO: footer) est un port sous Microsoft .NET du projet libre et open-source "Apache log4j". Il permet de gérer simplement les log dans l'application.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,13 +172,13 @@ TODO
 
 \subsection{Base de données}
 
-Une \textit{base de données} permet de stocker un grand nombre d'informations ayant des natures différentes. Ces informations sont stockées dans des tables, où les clés permettent de définir les liens de dépendant entre les informations.
+Une \textit{base de données} permet de stocker un grand nombre d'informations ayant des natures différentes. Les données de même nature sont stockées dans des tables, où un champs possède un type et représente une valeur.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{PowerAMC}
 
-\textit{PowerAMC}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase. Il permet d'établir facilement un modèle de données à partir de son interface graphique visible sur la figure \ref{PowerAMC} TODO: ici
+\textit{PowerAMC}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase. Il permet d'établir facilement un modèle de données à partir de son interface graphique, visible sur la figure \ref{PowerAMC}.
 %\begin{figure}[!h]
 %	\center
 %	\includegraphics[width=2cm]{img/PowerAMC.png}
@@ -181,13 +186,15 @@ Une \textit{base de données} permet de stocker un grand nombre d'informations a
 %	\label{PowerAMC}
 %\end{figure}
 
+Ce logiciel est utilisé par Sopra Group sur les différents projets. Je l'ai donc utilisé sur ce projet. Il m'a permis de concevoir, mais aussi effectuer les différentes modifications très simplement.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{SQL Server 2008}
+ici
+% TODO: licence : ce choix car licence déjà achetée pour d'autres ?
 
 Il existe de nombreux système de gestion de base de données : Oracle, MySQL, PostgreSQL, \ldots Nous avons utilisé \textit{Microsoft SQL Server}, dans sa version 2008 R2, par demande du client.
-
-TODO: licence : ce choix car licence déjà achetée pour d'autres ?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
