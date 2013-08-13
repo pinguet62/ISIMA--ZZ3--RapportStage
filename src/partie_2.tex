@@ -128,6 +128,14 @@ La figure \ref{utilisateur_profils_droits} représente le schéma UML des utilis
 %\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Programmation modulaire}
+
+Un module est un projet indépendant effectuant une tâche particulière. Le socle offre la possibilité de programmer de façon modulaire, où chacun des modules ne possèdent (quasiment) aucunes interactions entre elles.
+
+Ainsi pour programmer de manière structurée, plusieurs modules distincts ont été développés. Ceci permet de séparer l'implémentation de tâches distinctes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -178,7 +186,7 @@ Une \textit{base de données} permet de stocker un grand nombre d'informations a
 
 \subsubsection{PowerAMC}
 
-\textit{PowerAMC}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase. Il permet d'établir facilement un modèle de données à partir de son interface graphique, visible sur la figure \ref{PowerAMC}.
+\textit{PowerAMC}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase. Il permet d'établir facilement un modèle de données à partir de son interface graphique, visible sur la figure \ref{PowerAMC}. De plus, les scripts générés sont compatibles avec les différents types et versions de bases de données, ce qui permet se s'abstraire de certaines contraintes de compatibilité.
 %\begin{figure}[!h]
 %	\center
 %	\includegraphics[width=2cm]{img/PowerAMC.png}
@@ -190,27 +198,29 @@ Ce logiciel est utilisé par Sopra Group sur les différents projets. Je l'ai do
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{SQL Server 2008}
-ici
-% TODO: licence : ce choix car licence déjà achetée pour d'autres ?
+\subsubsection{SQL Server}
 
-Il existe de nombreux système de gestion de base de données : Oracle, MySQL, PostgreSQL, \ldots Nous avons utilisé \textit{Microsoft SQL Server}, dans sa version 2008 R2, par demande du client.
+Il existe de nombreux système de gestion de base de données : Oracle, MySQL, PostgreSQL, \ldots Nous avons utilisé \textit{Microsoft SQL Server}, par demande du client car il s'agit d'un standard pour Limagrain.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Mapping de la base de données}
 
-Le \textit{modèle relationnel} est utilisé dans les systèmes de gestion de base de données (SGBD) pour rassembler un ensemble d'informations. Les données (clés) sont dupliquées entre les tables et l'accès aux relations s'effectue ensuite grâce à des jointures entre les tables.
+\Jparagraph{Définition}
 
-Le \textit{modèle objet}, quant à lui, est utilisé dans la programmation orientée objet. Les données sont modélisées sous la formes d'objets, entités complexes ayant des comportements et des relations entre elles.
+Le "modèle relationnel" est utilisé dans les systèmes de gestion de base de données (SGBD) pour rassembler un ensemble d'informations. Les données (clés) sont dupliquées entre les tables et l'accès aux relations s'effectue ensuite grâce à des jointures entre les tables.
+
+Le "modèle objet", quant à lui, est utilisé dans la programmation orientée objet. Les données sont modélisées sous la formes d'objets, entités complexes ayant des comportements et des relations entre elles.
 \\
 
 Le \textit{mapping objet-relationnel} consiste à interfacer le modèle relationnel d'une base de données avec le modèle orienté objet d'un programme informatique. Généralement, une classe modélisera une table, et attribut d'objet modélisera un champ d'une table, avec un type similaire (par exemple \lstinline{String} pour \lstinline{varchar}).
-\\
 
-Cette opération peut être faite à l'aide d'un framework (TODO: glossaire), permettent de s'abstraire de la base de données, automatisant et réduisant ainsi la duplication de code. L'objectif est de faciliter le développement, augmenter la maintenabilité du programme, ou encore s'abstenir du type de base de données.
 
-Microsoft propose plusieurs framework, et c'est \textit{Entity Framework} qui a été utilisé. Il est intégré à Visual Studio, ce qui permet une génération et un paramétrage facilité. De plus, il permet l'interaction avec  LINQ (Language-Integrated Query), extension du langage permettant de faire des requêtes sur des ensembles de données s'abstrayant du type.
+\Jparagraph{Entity Framework}
+
+Cette opération peut être faite à l'aide d'un framework (TODO: glossaire), permettent de s'abstraire de la base de données, automatisant et réduisant ainsi la duplication de code. L'objectif est de faciliter le développement, augmenter la maintenabilité du programme, ou encore s'abstenir du type de base de données. Ainsi, la réaction, la recherche, la mise à jour, ou la suppression (opérations CRUD) de données se font de manière simplifiées voir transparentes pour l'utilisateur.
+
+Microsoft propose plusieurs framework, et c'est \textit{Entity Framework} qui a été utilisé. Il est intégré à Visual Studio, ce qui permet une génération et un paramétrage facile d'utilisation. De plus, il permet l'interaction avec  LINQ (Language-Integrated Query), extension du langage permettant de faire des requêtes sur des ensembles de données en s'abstrayant du type.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -218,34 +228,70 @@ Microsoft propose plusieurs framework, et c'est \textit{Entity Framework} qui a 
 
 \subsection{Les services}
 
+La couche de \textit{service} est la partie métier de l'application. Elle permet de séparer le code source lié à l'affichage destiné à l'utilisateur, du code métier effectuant des traitements dans l'application.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Client-Serveur}
 
-La couche de \textit{service} est la partie métier de l'application. Cela permet de séparer le code source lié à l'affichage destiné à l'utilisateur, du code métier effectuant des manipulations dans la base de données.
+\Jparagraph{Nécessité}
+
+Il est nécessaire de faire communiquer la couche cliente de l'application avec la couche métier en raison de l'utilisation de Silverlight, comme je l'expliquerai dans la section \ref{Silverlight} ci-après. Ces deux couches ne peuvent communiquer directement entre elles car l'une est exécutée sur le serveur et l'autre sur l'ordinateur de l'utilisateur. La solution consiste à utiliser un service web.
 
 
 \Jparagraph{Web service}
 
-Un \textit{service web} (ou \textit{web service}) est un programme informatique permettant la communication et l'échange d'informations entre des systèmes hétérogènes et distribués (local, réseau, internet, \ldots), exposant ainsi des fonctionnalités.
+Un \textit{service web} (ou \textit{web service}) est un programme informatique permettant la communication et l'échange d'informations entre des systèmes hétérogènes et distribués (local, réseau, internet, \ldots), exposant des fonctionnalités.
 
-L'échange d'informations entre le client et le serveur se fait par sérialisation, consistant à coder les informations contenues en mémoire. Cela peut se faire sous le format texte (XML, JSON, \ldots) ou au format binaire.
+L'échange d'informations entre le client et le serveur se fait par sérialisation, consistant à coder les informations contenues en mémoire. Cela peut se faire sous le format texte (XML, JSON, \ldots) ou même au format binaire. L'objectif est d'échanger des données génériques et abstraites qui pourront être représentées dans n'importe quel langage.
+
+L'exemple qui suit montre un exemple de sérialisation d'un même objet sous le format XML :
+\begin{lstlisting}[language = xml]
+<menu id="file" value="File">
+	<popup>
+		<menuitem value="New" onclick="CreateNewDoc()" />
+		<menuitem value="Open" onclick="OpenDoc()" />
+		<menuitem value="Close" onclick="CloseDoc()" />
+	</popup>
+</menu>
+\end{lstlisting}
+et JSON :
+\begin{lstlisting}[language = sh]
+{
+	"menu": {
+		"id": "file",
+		"value": "File",
+		"popup": {
+			"menuitem": [
+				{ "value": "New", "onclick": "CreateNewDoc()" },
+				{ "value": "Open", "onclick": "OpenDoc()" },
+				{ "value": "Close", "onclick": "CloseDoc()" }
+			]
+		}
+	}
+}
+\end{lstlisting}
 
 
 \Jparagraph{Windows Communication Foundation}
 
-\textit{Windows Communication Foundation}, couramment appelé sous ses initiales WCF, est la couche de communication de .NET Framework. Cette technologie respecte les normes standards des services web, ce qui lui permet d'appeler ou d'être appelé par des technologies différentes (Java, Python, \ldots).
+\textit{Windows Communication Foundation}, couramment appelé sous ses initiales WCF, est la couche de communication de .NET Framework, apparue dans la version 3.0. Cette technologie respecte les normes standards des services web, ce qui lui permet d'appeler ou d'être appelé par des technologies différentes (Java, Python, \ldots).
 
+Ce framework a été utilisé pour réaliser le service web de l'application, exposant ainsi différentes fonctions utiles à la couche d'affichage.
 
-\Jparagraph{WCF RIA Services}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Il est souvent nécessaire de posséder une logique applicative à la fois du coté serveur que du coté client. C'est le cas par exemple lorsque l'on souhaite vérifier la validité des données avant de les insérer en base de données : soit on effectue la même vérification du coté client et serveur, ce qui impose de dupliquer le code dans les deux couches, soit on n'effectue la vérification coté serveur, ce qui impose une communication inutile entre client et serveur.
+\subsubsection{WCF RIA Services}
 
-Pour éviter ce problème, Microsoft propose le framework \textit{WCF RIA Services}. Cet outil génère du code, contenu du coté serveur, dans la couche client, lors de la compilation.
-\\
+Il est souvent nécessaire de posséder une logique applicative à la fois du coté serveur et du coté client. C'est le cas par exemple lorsque l'on souhaite vérifier la validité des données avant de les insérer en base de données :
+\begin{enumerate}
+	\item Soit on effectue la vérification coté serveur, impliquant l'échange inutile d'informations lorsque celles-ci sont fausses ;
+	\item Soit la vérification est faite coté client, ce qui empêcherait le bon contrôle des flux d'entrée avant le traitement, ce qui pourrait amener à des erreurs ;
+	\item Soit on effectue la même vérification à la fois du coté client et du coté serveur, mais cela impose de dupliquer le même code dans les deux couches.
+\end{enumerate}
+~~\\
 
-
-La figure \ref{WCF_RIA_Services} représente les échanges entre la partie cliente de l'application et la partie serveur.
+Pour éviter ce problème, Microsoft propose le framework \textit{WCF RIA Services}. Cet outil duplique du code d'un projet pour le copier dans un autre, de façon automatiquement lors de la compilation. L'opération est schématisé sur la figure \ref{WCF_RIA_Services}. Ceci permet d'avoir un code métier constamment à jour sans avoir à effectuer les modifications dans les différentes couches.
 %\begin{figure}[!h]
 %	\center
 %	\includegraphics[width=2cm]{img/WCF_RIA_Services.png}
@@ -257,7 +303,8 @@ La figure \ref{WCF_RIA_Services} représente les échanges entre la partie clien
 
 \subsubsection{Reporting services}
 
-Microsoft fourni un outil de génération de rapports appelés \textit{Reporting services}. C'est un outil de la suite SQL Server. Un rapport se présente sous la forme d'un fichier XML. Visual Studio propose un éditeur graphique simplifiant son édition, la mise en forme ainsi que la création de requêtes.
+Microsoft fourni un outil de génération de rapports appelés \textit{Reporting services}. Cet un outil est intégré à la suite SQL Server. Les fichiers source utilisés par le service se présentent sous la forme d'un fichier XML. Visual Studio propose un éditeur graphique simplifiant son édition, la mise en forme ainsi que la création de requêtes.
+\\
 
 Le fonctionnement du service est représenté par la figure \ref{reporting_services} et se déroule en plusieurs étapes :
 %\begin{figure}[!h]
@@ -273,7 +320,7 @@ Le fonctionnement du service est représenté par la figure \ref{reporting_servi
 \end{enumerate}
 ~~\\
 
-Ce type de service a été utilisé dans le projet. Il est ainsi facile de générer les divers documents à imprimer avec les informations correspondantes aux contrats et candidats. Le serveur de rapports est installé sur la même machine que celle de la base de données, pour ne pas avoir à installer inutilement SQL Server, mais aussi parce que tous les serveurs sont installés sur la même machine par économie.
+Ce type de service a été utilisé dans le projet. Il est ainsi facile de générer les divers documents à imprimer avec les informations correspondantes aux contrats et candidats. Le serveur de rapports est installé sur la même machine que celle de la base de données, pour ne pas avoir à installer inutilement SQL Server, mais aussi parce que tous les serveurs sont installés sur la même machine.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,37 +331,24 @@ Ce type de service a été utilisé dans le projet. Il est ainsi facile de gén�
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Silverlight}
+\label{Silverlight}
 
 Microsoft \textit{Silverlight} est un plugin pour navigateur web. Il permet le développement d'applications riches et de pousser plus loin l'expérience utilisateur du web 2.0, au même titre qu'Adobe Flash dont il se veut une alternative. Initialement prévu pour des applications web dans un navigateur, les programmes peuvent être téléchargées pour être utilisés directement sur l'ordinateur ("out of browser"), et permettent aussi le développement d'applications pour Windows Phone 7.
 
-Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble de Microsoft .NET Framework. Les applications sont ainsi cross-browser (Internet Explorer, Firefox, Chrome, \ldots) et cross-platform (Windows, OS-X et Linux, via le projet open-source Moonlight). De plus les applications fonctionnent dans une "sandbox" ("bac a sable") ce qui permet de garantir une sécurité accrue pour l'utilisateur et le serveur.
+Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble de Microsoft .NET Framework. Les applications sont ainsi cross-browser (Internet Explorer, Firefox, Chrome, \ldots) et cross-platform (Windows, mais aussi OS-X et Linux via le projet open-source Moonlight). De plus les applications fonctionnent dans une "sandbox" ("bac a sable") ce qui permet de garantir une sécurité accrue pour l'utilisateur.
 
-Une des spécifications de Silverlight est l'impossibilité d'appeler des services web de manière synchrone, c'est à dire que la fonction appelante attend la réponse. En effet, lors d'un appel l'exécution continue et une événement est émis lors de la réception de la réponse. Cette solution permet de ne pas bloquer l'interface de l'utilisateur, qui pourrait penser à un plantage de l'application. Mais l'inconvénient est l'augmentation de la complexité de programmation car il est nécessaire de contrôler plusieurs fils d'exécution en parallèle.
+Une des spécifications de Silverlight est l'impossibilité d'appeler des services web de manière synchrone, c'est à dire que la fonction appelante attend la réponse. En effet, lors d'un appel à un service le programme continue son exécution et un événement est émis lors de la réception de la réponse. Cette solution permet de ne pas bloquer l'interface de l'utilisateur qui pourrait penser à un plantage de l'application. Mais l'inconvénient est l'augmentation de la complexité de programmation car il est nécessaire de contrôler plusieurs fils d'exécution en parallèle.
 
 \subsubsection{ASP.NET}
 
-Un projet "Web Silverlight" est composée de deux parties : un projet purement Silverlight que l'on utiliser normalement sur l'ordinateur, un projet web permettant d'exposer l'application.
+Un projet "Web Silverlight" nécessite la création d'un projet web, en plus du projet purement Silverlight. En effet, ce projet web permet d'encapsuler le Silverlight pour le transmettre au navigateur du client. Il est réalisé en \textit{ASP.NET} qui est une technologie Microsoft de programmation web, permettant de créer des sites dynamiques.
 
-Le projet web est réalisé en \textit{ASP.NET}. C'est une technologie Microsoft de programmation web, permettant de créer des sites dynamiques. Il est inclus
-TODO: IIS
+Il est nécessaire d'utiliser un serveur web pour déployer le projet ASP.NET. Nous avons encore utilisé une technologie Microsoft : \textit{Internet Information Services}, plus couramment appelé \textit{IIS}.
 
 \subsubsection{SignalR}
 
-Le temps réel dans une application web permet au client de recevoir des données au moment où elles sont publiées. Un exemple courant est une discussion instantanée : le serveur doit informer le client lors de la réception d'un message.
+Le temps réel dans une application web permet au client de recevoir des données au moment où elles sont publiées. Un exemple courant est une discussion instantanée : le serveur doit informer le client lors de la réception d'un message, sans que celui-ci n'ait à rafraichir la page continuellement.
 
-Avant l'apparition du HTML5, il était nécessaire d'utiliser des techniques JavaScript en envoyant continuellement des requêtes du client vers le serveur. Le HTML5 a apporté cette fonctionnalité grâce aux \textit{WebSocket}, canal de communication bidirectionnel entre un navigateur web et un serveur web.
+Avant l'apparition du HTML5, il était nécessaire d'utiliser des techniques JavaScript en envoyant continuellement des requêtes du client vers le serveur. Le HTML5 a apporté cette fonctionnalité grâce aux WebSocket, canal de communication bidirectionnel entre un navigateur web et un serveur web.
 
 Microsoft fourni une bibliothèque intégrée à ASP.NET appelée \textit{SignalR} (TODO: footer) permettant l'ajout de fonctionnalités de temps réel dans une application web. Elle est basée sur les WebSocket et du JavaScript, facilitant ainsi son utilisation.
-
-TODO: barre de chargement ?
-
-~~\\--------------------------------------------------
-
-3 modules : candidats, contrat, paramétrage partie 3)
-
-Reporting services
-Parler des versions ?
-SignalR
-Log4Net
-3 modules : candidats, contrat, paramétrage
-1 module = 1 truc indépendant
