@@ -2,6 +2,9 @@
 
 \chapter{Résultats - Discussions}
 
+Je vais maintenant vous présenter dans ce chapitre la solution obtenue après le développement et livré au client.
+De plus je présenterai mes impressions durant sa réalisation, dans le domaine technique et fonctionnel.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10,9 +13,10 @@
 
 \section{Interface graphique utilisateur}
 
-J'ai été libre de programmer la première version de l'interface graphique, comportant les fonctionnalités demandées par le client. Ce dernier a participé à sa réalisation en effectuant diverses critiques et réagencements des éléments afin d'optimiser l'ergonomie de l'application.
+J'ai été libre de programmer la première version de l'interface graphique, comportant les fonctionnalités demandées par le client.
+Ce dernier a tout de même participé à sa réalisation en effectuant diverses critiques et demandes de réagencement des éléments amenant à une interface graphique optimale et ergonomique.
 
-Je présenterai dans cette section la structure de l'affichage et les différents types d'écran.
+Je présenterai dans cette section la structure de l'affichage et les différents types d'écran de la solution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -20,25 +24,39 @@ Je présenterai dans cette section la structure de l'affichage et les différent
 
 \subsection{Structure}
 
+La figure \ref{appli_structure} montre la structure de l'interface graphique, avec les trois parties principales : la barre supérieure, le menu latéral, et le contenu où s'affichent les fenêtres.
+%\begin{figure}[!h]
+%	\center
+%	\includegraphics[width=2cm]{img/appli/structure.png}
+%	\caption{Structure de l'interface graphique}
+%	\label{appli_structure}
+%\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Barre supérieure}
 
-La partie supérieure de l'écran possèdes deux fonctions. La première est l'affichage des détails de l'application : logo, nom de l'application, version. La seconde est liée au compte de l'utilisateur : lien permettant de changer d'utilisateur, de déconnexion, et permettant de quitter l'application.
+La partie supérieure de l'écran possèdes deux fonctions.
+La première est l'affichage des détails de l'application, tels que le logo de l'entreprise, le nom de l'application, et des liens généraux.
+Cela permet d'identifier l'application utilisée.
+La seconde est liée au compte de l'utilisateur, avec des liens permettant de changer d'utilisateur, de se déconnecter, et permettant de quitter l'application.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Menu latéral}
 
-Une barre latéral située sur la partie gauche propose un \textit{menu}. Chaque ligne de ce menu correspond à un module de l'application. La figure \ref{menu} est une capture d'écran du menu, montrant les différents menus, et donc modules, de l'application.
+Une barre latéral située sur la partie gauche propose un \textit{menu}.
+Chaque ligne de ce menu correspond à un module de l'application, comme expliqué dans la partie \ref{Programmation modulaire}.
+La figure \ref{menu} est une capture d'écran du menu, montrant les différents menus de l'application.
 
-De plus, un sous-menu de second niveau apparait lorsque l'on sélectionne un menu. Il s'agit de chacun des écrans principaux du module correspondant. Par exemple, le menu "Accès" possède quatre sous-menus correspondants à quatre fonctionnalités, comme le montre la figure \ref{menu_administration}.
-
+De plus, un sous-menu de second niveau apparait lorsque l'on sélectionne un menu.
+Il s'agit de chacun des écrans principaux du module correspondant.
+Par exemple, le menu "Accès" possède quatre sous-menus correspondants à quatre fonctionnalités, comme le montre la capture d'écran de la figure \ref{appli_menu}.
 %\begin{figure}[!h]
 %	\center
 %	\includegraphics[width=2cm]{img/appli/menu.png}
 %	\caption{Menu latéral gauche}
-%	\label{menu}
+%	\label{appli_menu}
 %\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,13 +65,18 @@ De plus, un sous-menu de second niveau apparait lorsque l'on sélectionne un men
 
 \subsection{Les types d'écran}
 
-Les écrans peuvent peuvent être de plusieurs types.
+Pour ne pas perdre l'utilisateur, deux types d'écrans ont été utilisés, permettant de garder le même style dans l'application.
 
-Un écran d'affichage de données comporte un tableau permettant d'afficher une liste de valeurs. Il y a une zone de recherche permettant de filtrer les données. De plus, des boutons situés en bas de l'écran permettent d'effectuer des actions sur le ou les élément(s) sélectionné(s) : affichage des détails, modification, suppression, \ldots
+Un écran d'affichage de données comporte un tableau permettant d'afficher une liste de valeurs.
+Il y a une zone de recherche permettant de filtrer les données.
+De plus, des boutons situés en bas de l'écran permettent d'effectuer des actions sur le ou les élément(s) sélectionné(s) : affichage des détails, modification, suppression, \ldots
 
-L'affichage, la modification ou la création d'un élément est une fenêtre s'affichant par dessus l'écran actuel sous la forme d'un pop-up. Lorsqu'il s'agit d'une édition, les éléments sont des "zones de texte" ou des "listes déroulantes", sinon ce sont simplement des "labels".
+L'affichage, la modification ou la création d'un élément est une fenêtre s'affichant par dessus l'écran actuel sous la forme d'un pop-up.
+Lorsqu'il s'agit d'une édition les éléments sont des "zones de texte" ou des "listes déroulantes", sinon ce sont simplement des "labels".
 
-Des écrans de "paramétrage" permettent la gestion des tables "statiques". Ce sont les valeurs des différentes listes déroulantes que l'on peut trouver dans les écrans de saisie. Il est ainsi possible d'administrer ces listes en supprimant certaines entrées ou en créant de nouvelles.
+Deux écrans de "paramétrage" sont différentes des autres.
+Ils permettent de gérer les tables "statiques" contenant les valeurs des différentes listes déroulantes que l'on peut trouver dans l'application.
+Ils sont composés de plusieurs tableaux affichant les données présentes, avec des boutons permettant l'ajout, la modification ou la suppression de valeurs.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -63,14 +86,41 @@ Des écrans de "paramétrage" permettent la gestion des tables "statiques". Ce s
 
 \section{Base de données}
 
-Le modèle de données actuel satisfait bien le besoin du client. Il modélise correctement les différentes données à enregistrer, avec les contraintes et dépendances imposées.
+Le modèle de données actuel satisfait bien le besoin du client.
+Il représente correctement les différentes données à enregistrer, avec les contraintes et dépendances imposées.
 
-Cependant il reste quelques améliorations possibles. En effet, le client a tendance à ajouter, modifier ou supprimer certaines spécifications au court du projet, imposant des changes plus ou moins importants dans le modèle. Ces changements impactent aussi les différentes couches de l'application, du mapping à l'interface graphique, ce qui peut faire perdre un temps important en fin de projet. Ainsi les modifications "non bloquantes" n'ont pas été apportées et le seront lors du lot 2.
+Cependant il reste quelques améliorations possibles.
+En effet, le client a tendance à ajouter, modifier ou supprimer certaines spécifications au court du projet, imposant des changes plus ou moins importants dans le modèle.
+Ces changements impactent aussi les différentes couches de l'application, du mapping à l'interface graphique, ce qui peut faire perdre un temps important en fin de projet.
+Pour ne pas retarder la livraison du lot 1, les modifications "non bloquantes" n'ont pas été apportées et le seront lors du lot 2.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Aspect fonctionnel}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Contact avec le client}
 
-~~\\-------------
+Travailler en assistance chez le client m'a permis de découvrir un univers totalement différent de celui de l'agence Sopra Group.
 
-TODO: DAPE, DUE
+L'avantage est d'être en contact direct avec le client, ce qui permet d'avoir des informations en temps réel. Cela évite donc de devoir appeler ou échanger des mails, et les explications sont plus claires.
+
+En contre partie, le client a tendance à demande l'état d'avancement du projet plus régulièrement.
+Cette proximité procure une pression supplémentaire, notamment lorsque le projet est en retard sur les prévisions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Les spécifications}
+
+Le principal problème rencontré durant ce projet est l'absence de périmètre dans les spécifications.
+Celles-ci ont en effet été rédigées en parallèle, voir même en se basant sur les résultats de l'application.
+Cette porte ouverte a permis au client de demander de nouvelles fonctionnalités au fur et à mesure de l'avancement.

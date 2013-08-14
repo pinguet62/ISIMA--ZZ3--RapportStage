@@ -13,10 +13,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Le métier d'ingénieur}
+\subsection{Historique}
+
+\textit{Sopra Group} est une Sociétés de Service en Ingénierie Informatique, couramment appelé SSII.
+Créée en 1968 par Pierre PASQUIER et François ODIN, il s'agit d'un des plus anciennes et importante SSII.
+La société s'est d'abord révélé au niveau national grâce à de grands projets dans les domaines bancaires et avec le Ministère de l'Intérieur, avant de s'implanter au niveau européen et mondial.
+Avec plus de 14.300 collaborateurs en 2012, Sopra Group réalise un chiffre d'affaire supérieur à 1,2 milliards d'euros, principalement dans le domaine du conseil et des services en France.
+
+\subsection{Agence de Clermont-Ferrand}
+
+Michelin est le plus gros employeur de la région Auvergne, mais fait aussi appelle à de nombreuses sociétés extérieures comme les sociétés de service.
+Dû au nombre croissant de collaborateurs travaillant chez Michelin, la division Rhône-Alpes a créé l'agence de Clermont-Ferrand pour être au plus proche du client.
+
+L'agence de Clermont-Ferrand travaille aussi sur plusieurs autres projets importants.
+Le pôle identité qui est spécialisé dans la gestion de titres (documents d'identité, passeport, cartes à puce, \ldots) grâce aux projets Sides et plus récemment SITI, travaillant pour une quinzaine de gouvernements.
+Le groupe Limagrain, dont le siège social est situé Chappes, fait actuellement appelle aux services de Sopra Group pour la réalisation du projet Boss.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,16 +45,20 @@
 \subsection{Besoin de l'utilisateur}
 
 Durant l'été, saison des récoltes des céréales, Limagrain emploie de nombreux travailleurs.
-Il s'agit principalement de contrats saisonniers, à durée déterminée, qui seront 
+Il s'agit principalement de contrats saisonniers ou à durée déterminée.
 \\
 
-Les candidats effectuent souvent plusieurs contrat dans l'entreprise.
-Il est donc nécessaire de mémoriser leurs informations pour pouvoir les réutiliser les années suivant et de les mettre à jour en cas de besoin.
+Le service de recrutement du groupe Limagrain a besoin d'enregistrer les informations de chacun de ses employés pour ne pas avoir à les ressaisir lors des prochains contrats.
+En effet, le service emploie de préférence d'anciens candidats.
+De plus, les contrats sont parfois renouvelés plusieurs fois durant la saison ou chaque année.
 
-De plus, la création de contrat s'effectuent rapidement, du fait que les agriculteurs ne peuvent prévoir les demandes de ressource à l'avance.
-Le service des ressources humaines doit ainsi saisir de nombreux informations sur les candidats et éditer les contrats très rapidement.
+L'Urssaf, unions de recouvrement des cotisations de sécurité sociale et d'allocations familiales, impose la saisie d'un document : la DAPE, déclaration préalable à l'embauche.
+Pour chaque recrutement il est donc nécessaire de remplir ce document avec les informations du candidat ainsi que du contrat.
+Le client désire donc pouvoir générer automatiquement ces documents, lui évitant ainsi de les saisir manuellement un par un pour chaque contrat.
 
+Pour faciliter le recrutement d'anciens candidats, ou la recherche de candidats disponibles, le client désire avoir différentes fonctionnalités de recherche, comme par exemple la recherche de candidats disponibles à certaines périodes, ou les candidats ayant un contrat en cours dont il n'a pas fourni toutes les pièces justificatives, \ldots
 
+Enfin pour pouvoir augmenter leur productivité, il sera nécessaire de produire une application ergonomique et facile d'utilisation permettant la saisie de nombreuses données le plus rapidement possible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -50,17 +66,17 @@ Le service des ressources humaines doit ainsi saisir de nombreux informations su
 
 \subsection{Solution actuelle}
 
-Le service des ressources humaines utilisait un document Access, de Microsoft Office.
+Le service de recrutement utilisait une petite application Access développée à partir d'un document Excel, de Microsoft Office.
 Ce document comporte une base de donnée ainsi qu'une interface de saisie.
 \\
 
 Cette solution comporte de nombreux inconvénients.
 
-Tout d'abord, la saisie des données est fastidieuse car l'ergonomie est très sommaire : les champs sont disposés de manière désordonnée sur la page. Par exemple lorsque l'utilisateur doit saisir un établissement de travail, il doit saisir son code exacte, sans commettre d'erreur.
+Tout d'abord, la saisie des données est fastidieuse car l'ergonomie est très sommaire : les champs sont disposés de manière désordonnée sur la page.
+De plus, pour la saisie d'un établissement par exemple, il était nécessaire de saisir son code, sans pouvoir voir directement son nom ou toute autre information.
 
 Les fonctionnalités sont limitées, et se limitent principalement à la saisie.
-
-
+Les attentes de l'utilisateur sont donc très loin de ce que propose l'outil actuel.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,9 +87,12 @@ Les fonctionnalités sont limitées, et se limitent principalement à la saisie.
 En étudiant la solution actuelle, les chefs de projet ont réfléchis à la meilleure solution qui corrigerait ses inconvénients, et apporterait de nouveaux avantages.
 \\
 
-Il es tout débord nécessaire de changer de base de données pour se tourner vers un système plus performant. Comme le groupe Limagain est tourné vers les technologies Microsoft, il a été décidé d'utiliser \textit{Microsoft SQL Server}.
+Il es tout débord nécessaire de changer de base de données pour se tourner vers un système plus performant.
+Comme le groupe Limagain est tourné vers les technologies Microsoft, il a été décidé d'utiliser \textit{Microsoft SQL Server}.
 
-Pour améliorer l'ergonomie de l'application, la nouvelle solution sera un \textit{client léger}. En effet, nous ne seront pas confrontés aux problèmes de performances qu'offre cette solution, et en cas de défaillance du serveur l'application sera inutilisable dans tous les cas du fait que la base de données y sera centralisée. Ainsi, un simple site web offre les avantages d'un déploiement unique, d'une maintenance simple.
+Pour améliorer l'ergonomie de l'application, la nouvelle solution sera un \textit{client léger}.
+En effet, nous ne seront pas confrontés aux problèmes de performances qu'offre cette solution, et en cas de défaillance du serveur l'application sera inutilisable dans tous les cas du fait que la base de données y sera centralisée.
+Ainsi, un simple site web offre les avantages d'un déploiement unique, d'une maintenance simple.
 
 ~~\\--------------------------------------------------
 Access : sécurité, maintenance, évolutivité
