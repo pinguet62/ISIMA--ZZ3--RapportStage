@@ -56,9 +56,11 @@ L'Urssaf, unions de recouvrement des cotisations de sécurité sociale et d'allo
 Pour chaque recrutement il est donc nécessaire de remplir ce document avec les informations du candidat ainsi que du contrat.
 Le client désire donc pouvoir générer automatiquement ces documents, lui évitant ainsi de les saisir manuellement un par un pour chaque contrat.
 
-Pour faciliter le recrutement d'anciens candidats, ou la recherche de candidats disponibles, le client désire avoir différentes fonctionnalités de recherche, comme par exemple la recherche de candidats disponibles à certaines périodes, ou les candidats ayant un contrat en cours dont il n'a pas fourni toutes les pièces justificatives, \ldots
+Pour faciliter le recrutement d'anciens candidats, ou la recherche de candidats disponibles, le client désire avoir différentes fonctionnalités de recherche.
+Il peut s'agir par exemple de la recherche de candidats disponibles à certaines périodes, ou les candidats ayant un contrat en cours dont il n'a pas fourni toutes les pièces justificatives.
 
 Enfin pour pouvoir augmenter leur productivité, il sera nécessaire de produire une application ergonomique et facile d'utilisation permettant la saisie de nombreuses données le plus rapidement possible.
+Limagrain reçoit en effet plus de 1.000 candidatures en moins d'un mois dont une grande partie effectuent des contrats.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,22 +80,21 @@ De plus, pour la saisie d'un établissement par exemple, il était nécessaire d
 Les fonctionnalités sont limitées, et se limitent principalement à la saisie.
 Les attentes de l'utilisateur sont donc très loin de ce que propose l'outil actuel.
 
+Enfin, il est impossible de travailler en simultané avec cet outil car les sauvegardes multiples ne sont pas prises en compte.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Solution envisagée}
 
-En étudiant la solution actuelle, les chefs de projet ont réfléchis à la meilleure solution qui corrigerait ses inconvénients, et apporterait de nouveaux avantages.
+En étudiant la solution actuelle, les chefs de projet et architectes ont décidé de développer une nouvelle solution, en raison de l'impossibilité de maintenir et faire évoluer l'ancienne.
+Cette nouvelle solution devra répondre aux besoins de l'utilisateur, en corrigeant les inconvénients de l'ancienne ainsi qu'en apportant de nouvelles fonctionnalités.
 \\
 
-Il es tout débord nécessaire de changer de base de données pour se tourner vers un système plus performant.
-Comme le groupe Limagain est tourné vers les technologies Microsoft, il a été décidé d'utiliser \textit{Microsoft SQL Server}.
+Il es tout débord nécessaire de changer de base de données pour se tourner vers un système plus performant et centralisé.
+Un nouveau schéma de données adapté aux nouveaux besoins permettra de mieux structurer ces données.
 
 Pour améliorer l'ergonomie de l'application, la nouvelle solution sera un \textit{client léger}.
-En effet, nous ne seront pas confrontés aux problèmes de performances qu'offre cette solution, et en cas de défaillance du serveur l'application sera inutilisable dans tous les cas du fait que la base de données y sera centralisée.
-Ainsi, un simple site web offre les avantages d'un déploiement unique, d'une maintenance simple.
-
-~~\\--------------------------------------------------
-Access : sécurité, maintenance, évolutivité
-au moins 1000 candidatures en 1 mois
+Dans ce projet nous ne rencontrerons pas les inconvénients qu'offre cette solution, comme les performances ou les problèmes qui affecteront tous les utilisateurs.
+Par contre, un simple site web offre les avantages d'un déploiement unique, d'une maintenance simple, car cela ne se fait que sur le serveur et non sur chacun des ordinateurs des utilisateurs.
