@@ -22,15 +22,42 @@ Je présenterai dans cette section la structure de l'affichage et les différent
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Connexion}
+
+L'application restreint son accès aux personnes autorisées, c'est à dire possédant des identifiants valides.
+Lorsque l'on se connecte à l'application, la première fenêtre qui s'affiche est l'écran de connexion, que l'on peut apercevoir sur la capture d'écran de la figure \ref{connexion_ecran}.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=1\textwidth]{img/connexion_ecran.png}
+	\caption{Écran de connexion}
+	\label{connexion_ecran}
+\end{figure}
+~~\\
+
+L'application peut se connecter à un serveur LDAP permettant la gestion des utilisateurs.
+Lorsque l'utilisateur a saisi son identifiant et son mot de passe, l'application vérifie d'abord s'il s'agit d'un compte LDAP en envoyant une requête au serveur LDAP.
+Si ce n'est pas le cas, alors l'application va vérifier s'il s'agit d'un compte "applicatif pur" propre à l'application.
+Ce processus est schématisé par le diagramme de flux présent sur la figure \ref{connexion_processus}.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=0.4\textwidth]{img/connexion_processus.png}
+	\caption{Processus de connexion}
+	\label{connexion_processus}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Structure}
 
-La figure \ref{appli_structure} montre la structure de l'interface graphique, avec les trois parties principales : la barre supérieure, le menu latéral, et le contenu où s'affichent les fenêtres.
-%\begin{figure}[!h]
-%	\center
-%	\includegraphics[width=2cm]{img/appli/structure.png}
-%	\caption{Structure de l'interface graphique}
-%	\label{appli_structure}
-%\end{figure}
+La figure \ref{structure} montre la structure de l'interface graphique, avec les trois parties principales : la barre supérieure, le menu latéral, et le contenu où s'affichent les fenêtres.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=1\textwidth]{img/structure.png}
+	\caption{Structure de l'interface graphique}
+	\label{structure}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -51,13 +78,18 @@ La figure \ref{menu} est une capture d'écran du menu, montrant les différents 
 
 De plus, un sous-menu de second niveau apparait lorsque l'on sélectionne un menu.
 Il s'agit de chacun des écrans principaux du module correspondant.
-Par exemple, le menu "Accès" possède quatre sous-menus correspondants à quatre fonctionnalités, comme le montre la capture d'écran de la figure \ref{appli_menu}.
-%\begin{figure}[!h]
-%	\center
-%	\includegraphics[width=2cm]{img/appli/menu.png}
-%	\caption{Menu latéral gauche}
-%	\label{appli_menu}
-%\end{figure}
+Par exemple, le menu "Accès" possède quatre sous-menus correspondants à quatre fonctionnalités, comme le montre la capture d'écran de la figure \ref{menu}.
+
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=0.5\textwidth]{img/menu.png}
+	\caption{Menu latéral gauche}
+	\label{menu}
+\end{figure}
+~~\\
+
+Ce menu facilite la navigation entre les différentes fonctionnalités de l'application sans avoir à retourner sur la page d'accueil.
+Les sous-menus quant à eux permettent de hiérarchiser les fonctionnalités par thème, séparant ainsi les actions liées aux candidats de celles liées aux contrats et encore de l'administration.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,10 +103,10 @@ Un écran d'affichage de données comporte un tableau permettant d'afficher une 
 Il y a une zone de recherche permettant de filtrer les données.
 De plus, des boutons situés en bas de l'écran permettent d'effectuer des actions sur le ou les élément(s) sélectionné(s) : affichage des détails, modification, suppression, \ldots
 
-L'affichage, la modification ou la création d'un élément est une fenêtre s'affichant par dessus l'écran actuel sous la forme d'un pop-up.
+L'affichage, la modification ou la création d'un élément est une fenêtre s'affichant par-dessus l'écran actuel sous la forme d'un pop-up.
 Lorsqu'il s'agit d'une édition les éléments sont des "zones de texte" ou des "listes déroulantes", sinon ce sont simplement des "labels".
 
-Deux écrans de "paramétrage" sont différentes des autres.
+Deux écrans de "paramétrage" sont différents des autres.
 Ils permettent de gérer les tables "statiques" contenant les valeurs des différentes listes déroulantes que l'on peut trouver dans l'application.
 Ils sont composés de plusieurs tableaux affichant les données présentes, avec des boutons permettant l'ajout, la modification ou la suppression de valeurs.
 
@@ -112,7 +144,7 @@ Travailler en assistance chez le client m'a permis de découvrir un univers tota
 
 L'avantage est d'être en contact direct avec le client, ce qui permet d'avoir des informations en temps réel. Cela évite donc de devoir appeler ou échanger des mails, et les explications sont plus claires.
 
-En contre partie, le client a tendance à demande l'état d'avancement du projet plus régulièrement.
+En contrepartie, le client a tendance à demande l'état d'avancement du projet plus régulièrement.
 Cette proximité procure une pression supplémentaire, notamment lorsque le projet est en retard sur les prévisions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

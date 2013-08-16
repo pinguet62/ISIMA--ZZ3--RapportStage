@@ -7,7 +7,7 @@
 \documentclass[
 	a4paper,	% feuille A4
 	twoside,	% impression Recto-Verso
-	10 pt		% taille de police
+	12 pt		% taille de police
 ]{report}		% type de document
 
 
@@ -15,12 +15,8 @@
 \usepackage[utf8]{inputenc}		% encodage des caractères
 \usepackage[T1]{fontenc}		% nouvelle norme de codage
 \usepackage[francais]{babel}	% langue française
-%\usepackage{lscape}				% format paysage
 \usepackage{multicol}			% multi-colonnes
 \usepackage{graphicx}			% images
-%\usepackage{float}				% insertion d'image avec l'option "H"
-%\usepackage{textcomp}			% signe €
-%\usepackage{ulem}				% souligner
 
 
 %%%%%%%%%% Marges %%%%%%%%%%
@@ -75,10 +71,10 @@
 \input{src/en_tete-pied_de_page}
 
 % Pas d'en-tête dans la table des matières
-%\addtocontents{toc}{\protect\thispagestyle{empty}}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 
 % Pas d'en-tête dans la table des figures
-%\addtocontents{lof}{\protect\thispagestyle{empty}}
+\addtocontents{lof}{\protect\thispagestyle{empty}}
 
 
 %%%%%%%%%% Notes de bas de page %%%%%%%%%%
@@ -153,12 +149,7 @@
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}	% titre chapitre : "III." plutôt que "Chapitre III."
 %\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}	% titre section
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Début de l'accompagnement %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\pagestyle{encadrement}
-\pagenumbering{roman}
+\pagestyle{empty}
 
 %%%%%%%%%% Page de garde %%%%%%%%%%
 \input{src/page_de_garde}
@@ -168,7 +159,6 @@
 
 %%%%%%%%%% Table des figures %%%%%%%%%%
 \cleardoublepage
-\addcontentsline{toc}{chapter}{\listfigurename}
 \listoffigures
 
 %%%%%%%%%% Résumé %%%%%%%%%%
@@ -179,19 +169,15 @@
 
 %%%%%%%%%% Table des matières %%%%%%%%%%
 \cleardoublepage
-\addcontentsline{toc}{chapter}{\contentsname}
 \tableofcontents
 
 %%%%%%%%%% Glossaire %%%%%%%%%%
+%\cleardoublepage
 %\printglossary
 \input{src/glossaire}
 
 \clearpage
 \thispagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Contenu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
 \pagestyle{corps}
@@ -213,32 +199,12 @@
 \input{src/conclusion}
 
 \clearpage
-\thispagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Fin de l'accompagnement %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\cleardoublepage
-\pagestyle{encadrement}
-\pagenumbering{roman}
-\setcounter{page}{24}
+\pagestyle{empty}
 
 %%%%%%%%%% Bibliographie %%%%%%%%%%
 \input{src/bibliographie}
 
 \clearpage
 \thispagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Annexes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\cleardoublepage
-\pagestyle{annexe}
-\pagenumbering{Roman}
-
-%%%%%%%%%% Annexe %%%%%%%%%%
-\input{src/annexe}
 
 \end{document}
