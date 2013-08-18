@@ -212,7 +212,7 @@ Ils permettent de garder des traces d'exécution, notamment lors du démarrage, 
 Les log peuvent faciliter le débogage et la recherche d'anomalies.
 Un ou plusieurs fichiers texte sont générés donnant accès à ces informations.
 
-Le framework \textit{log4net}\footnote{log4net - Site web : http://logging.apache.org/log4net/} est un port sous Microsoft .NET du projet libre et open-source "Apache log4j".
+Le framework \textit{log4net}\footnote{log4net - Site web : \url{http://logging.apache.org/log4net/}} est un port sous Microsoft .NET du projet libre et open-source "Apache log4j".
 Il permet de gérer simplement les log dans l'application.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -228,7 +228,7 @@ Les données de même nature sont stockées dans des tables, où un champ possè
 
 \subsubsection{PowerAMC}
 
-\textit{PowerAMC}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase.
+\textit{PowerAMC}\footnote{PowerAMC - Site web : \url{http://www.sybase.fr/products/modelingdevelopment/poweramc}}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase.
 Il permet d'établir facilement un modèle de données à partir de son interface graphique, visible sur la figure \ref{PowerAMC}.
 De plus, les scripts générés sont compatibles avec les différents types et versions de bases de données, ce qui permet de s'abstraire de certaines contraintes de compatibilité.
 \begin{figure}[!h]
@@ -403,6 +403,8 @@ Le serveur de rapports est installé sur la même machine que celle de la base d
 \subsubsection{Silverlight}
 \label{Silverlight}
 
+\Jparagraph{Présentation}
+
 Microsoft \textit{Silverlight} [Silverlight] est un plugin pour navigateur web.
 Il permet le développement d'applications riches et de pousser plus loin l'expérience utilisateur du web 2.0, au même titre qu'Adobe Flash dont il se veut une alternative.
 Initialement prévu pour des applications web dans un navigateur, les programmes peuvent être téléchargés pour être utilisés directement sur l'ordinateur ("out of browser"), et permettent aussi le développement d'applications pour Windows Phone 7.
@@ -416,6 +418,33 @@ En effet, lors d'un appel à un service le programme continue son exécution et 
 Cette solution permet de ne pas bloquer l'interface de l'utilisateur qui pourrait penser à un plantage de l'application.
 Mais l'inconvénient est l'augmentation de la complexité de programmation car il est nécessaire de contrôler plusieurs fils d'exécution en parallèle.
 
+
+\Jparagraph{Pattern MVVM}
+
+Le pattern \textit{Modèle-Vue-VueModèle} a été créé par Microsoft a destination de Silverlight et Windows Presentation Foundation (WPF).
+Il permet de structurer le développement d'interfaces graphiques en séparant la vue de la logique et de l'accès aux données, comme l'illustre le schéma de la figure \ref{MVVM}.
+Le couplage est plus faible qu'avec le pattern Modèle-Vue-Contrôleur (MVC), ce qui permet une maintenance, une réutilisabilité et des tests plus faciles.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=1\textwidth]{img/MVVM.png}
+	\caption{Pattern Modèle-Vue-VueModèle}
+	\label{MVVM}
+\end{figure}
+~~\\
+
+La vue du pattern MVVM utilise le langage \textit{XAML}, dérivé du langage XML, développé pour les besoins de Microsoft.
+Son aspect générique sans code source permet aux interfaces graphiques d'être réutilisées dans diverses application et divers langages (C\#, VB.NET, \ldots).
+
+L'exemple qui suit affiche une zone de saisie dont le contenu est bindé à la propriété \lstinline{PersonName} du ViewModel.
+Ainsi une modification de la View mettra à jour automatiquement la propriété, et inversement une modification de la propriété du ViewModel mettra à jour la View.
+\begin{lstlisting}[language = xml]
+<Window xmlns="...">
+	<TextBox Text="{Binding Path=PersonName}"/>
+</Window>
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{ASP.NET}
 
 Un projet "Web Silverlight" nécessite la création d'un projet web, en plus du projet purement Silverlight.
@@ -425,6 +454,8 @@ Il est réalisé en \textit{ASP.NET} qui est une technologie Microsoft de progra
 Il est nécessaire d'utiliser un serveur web pour déployer le projet ASP.NET.
 Nous avons encore utilisé une technologie Microsoft : \textit{Internet Information Services}, plus couramment appelé \textit{IIS}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{SignalR}
 
 Le temps réel dans une application web permet au client de recevoir des données au moment où elles sont publiées.
@@ -433,5 +464,5 @@ Un exemple courant est une discussion instantanée : le serveur doit informer le
 Avant l'apparition du HTML5, il était nécessaire d'utiliser des techniques JavaScript en envoyant continuellement des requêtes du client vers le serveur.
 Le HTML5 a apporté cette fonctionnalité grâce aux WebSocket, canal de communication bidirectionnel entre un navigateur web et un serveur web.
 
-Microsoft fourni une bibliothèque intégrée à ASP.NET appelée \textit{SignalR}\footnote{SignalR - Site web : http://signalr.net/} permettant l'ajout de fonctionnalités de temps réel dans une application web.
+Microsoft fourni une bibliothèque intégrée à ASP.NET appelée \textit{SignalR}\footnote{SignalR - Site web : \url{http://signalr.net/}} permettant l'ajout de fonctionnalités de temps réel dans une application web.
 Elle est basée sur les WebSocket et du JavaScript, facilitant ainsi son utilisation.

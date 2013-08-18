@@ -118,6 +118,12 @@ Ils sont composés de plusieurs tableaux affichant les données présentes, avec
 
 \section{Base de données}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Modèle de données}
+
 Le modèle de données actuel satisfait bien le besoin du client.
 Il représente correctement les différentes données à enregistrer, avec les contraintes et dépendances imposées.
 
@@ -125,6 +131,27 @@ Cependant il reste quelques améliorations possibles.
 En effet, le client a tendance à ajouter, modifier ou supprimer certaines spécifications au court du projet, imposant des changes plus ou moins importants dans le modèle.
 Ces changements impactent aussi les différentes couches de l'application, du mapping à l'interface graphique, ce qui peut faire perdre un temps important en fin de projet.
 Pour ne pas retarder la livraison du lot 1, les modifications "non bloquantes" n'ont pas été apportées et le seront lors du lot 2.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Importation des anciennes données}
+
+Plusieurs milliers de candidats et contrats ont été saisis avec l'ancienne application par le service de recrutement.
+De nombreux candidats effectuent plusieurs contrats dans le groupe Limagrain.
+Pour ne pas avoir à ressaisir ces informations, il est nécessaire d'effectuer une importation des anciennes données dans la nouvelle base de données.
+\\
+
+Le changement du modèle de données entre l'ancienne et la nouvelle version de la base de données impose certaines modifications.
+
+Lorsque des champs sont ajoutés et qu'ils sont obligatoires, il est nécessaire de définir leur valeur.
+S'il s'agissait d'un simple champs (entier, chaîne de caractères, date, \ldots) alors j'ai soit spécifié la valeur par défaut (0, la chaîne vide, la date minimale, \ldots), soit défini une valeur spécifique que l'utilisateur devra mettre à jour (par exemple "A définir" ou la date du jour), selon ce que modélise le champ.
+
+Si un champ change de type, comme par exemple le passage d'un stockage sous forme de chaîne de caractères (\lstinline{String}) à entier (\lstinline{int}), il est souvent nécessaire d'effectuer une conversion, si cela est possible.
+Ce changement de type permet de s'adapter aux besoins de l'utilisateur, ou améliorer la cohérence des données dans la base de données en empêchant le stockage d'informations invalides.
+
+C'était le cas pour un numéro de sécurité social, initialement stocké sous la forme d'une chaîne de caractères, les données seront maintenant stockés sous la forme d'un entier à 15 chiffres.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -154,5 +181,25 @@ Cette proximité procure une pression supplémentaire, notamment lorsque le proj
 \subsection{Les spécifications}
 
 Le principal problème rencontré durant ce projet est l'absence de périmètre dans les spécifications.
-Celles-ci ont en effet été rédigées en parallèle, voir même en se basant sur les résultats de l'application.
-Cette porte ouverte a permis au client de demander de nouvelles fonctionnalités au fur et à mesure de l'avancement.
+Celles-ci ont en effet été rédigées en parallèle, voir même en se basant sur les résultats de l'application, par manque de budget et de charges sur le projet.
+
+Cette porte ouverte a permis au client de modifier le périmètre du projet au cours du temps.
+De nouvelles fonctionnalités ont été demandées au fur et à mesure de l'avancement.
+De plus, certaines fonctionnalités ont dû être modifiées à plusieurs reprises pour répondre aux besoins du client.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{La communication}
+
+Ce projet m'a amené à utiliser mes compétences de communication à plusieurs reprises et dans diverses situations.
+\\
+
+Les besoins de l'utilisateur peuvent parfois prendre un temps important pour être réalisés techniquement.
+Il m'est donc arrivé de négocier avec le client pour concevoir une solution intermédiaire, avec le meilleur compromis entre temps de développement et fonctionnalité désirée.
+\\
+
+Une fois la première ébauche de l'application terminée, une réunion a été faite chez le client en présence des diverses personnes du service de recrutement qui utiliseront l'application.
+Cette réunion avait pour objectif de présenter l'aspect général de l'application, ainsi que les différentes fonctionnalités implémentées.
+Il a fallu aussi répondre aux différentes interrogations du client, notamment la date à laquelle sera opérationnelle l'application.
