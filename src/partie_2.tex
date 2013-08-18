@@ -12,12 +12,12 @@
 
 Pour réaliser ce projet, j'ai été intégré dans une petite équipe de trois personnes.
 
-Un chef de projet qui est le relai entre Sopra Group et Limagrain afin d'établir la compréhension du besoin fonctionnel et technique.
+Un chef de projet qui est le relais entre Sopra Group et Limagrain afin d'établir la compréhension du besoin fonctionnel et technique.
 Sa charge est d'une demi-journée par semaine.
 De plus, il est chargé de la rédaction des spécifications de l'application.
 Pour des raisons de délais trop courts et charges limitées, ces spécifications ont été réalisées en parallèle du développement, malgré l'éloignement des bonnes pratiques.
 
-Un architecte a pour objectif de suivre le développeur, conseillant les outils, technologies et méthodes utilisées.
+Un architecte qui a pour objectif de suivre le développeur, conseillant les outils, technologies et méthodes utilisées.
 Sa charge sur le projet est aussi d'une demi-journée par semaine.
 
 Et enfin moi-même, en tant que développeur, en charge du développement de l'application, à plein temps.
@@ -37,7 +37,7 @@ Et enfin moi-même, en tant que développeur, en charge du développement de l'a
 % TODO: détails assistance et différence avec projet (?)
 
 Le projet s'est réalisé en mode \textit{assistance technique}.
-Il n'y a aucune date de livré imposée, par contre la charge (nombre de jours d'interventions) totale est fixe.
+Il n'y a aucune date de livraison imposée, par contre la charge (nombre de jours d'interventions) totale est fixe.
 
 J'ai travaillé à raison de trois jours chez le client Limagrain et deux jours au siège de Sopra Group, profitant ainsi de la proximité du client pour éclaircir les points ambigus.
 
@@ -48,8 +48,8 @@ J'ai travaillé à raison de trois jours chez le client Limagrain et deux jours 
 La relation directe avec le client m'a permis de définir le besoin du client au cours des différentes étapes du projet.
 
 La première étape a consisté à établir le modèle de données.
-Pour cela il a fallu étudier la solution existante pour déterminer les informations à mémoriser, leur type, les contraintes, ainsi que les liens entre elles.
-Cette partie est importante car la structure de l'application est fortement liée a ce modèle.
+Pour cela il a fallu étudier la solution existante pour déterminer les informations à mémoriser, leurs types, les contraintes, ainsi que les liens entre elles.
+Cette partie est importante car la structure de l'application est fortement liée à ce modèle.
 
 Deuxièmement, j'ai réalisé une première version de l'interface graphique de l'application.
 L'objectif est de proposer une première maquette au client qui pourra effectuer des critiques.
@@ -76,15 +76,15 @@ La figure \ref{architecture} schématise les différents composants et communica
 \end{figure}
 ~~\\
 
-Le groupe Limagrain travaille dans un environnement Micosoft et utilise ainsi leurs technologies et logiciels, comme par exemple : Windows pour le système d'exploitation, Internet Explorer comme navigateur internet, Outlook comme messagerie, \ldots
+Le groupe Limagrain travaille dans un environnement Microsoft et utilise ainsi leurs technologies et logiciels, comme par exemple : Windows pour le système d'exploitation, Internet Explorer comme navigateur internet, Outlook comme messagerie, \ldots
 
 Pour développer cette solution nous nous sommes donc tournés vers les technologies Microsoft, facilitant ainsi la compatibilité et l'intégration des composants.
 \\
 
-L'architecture d'une application est importante, car cela définie sa maintenabilité et son l'évolutivité.
+L'architecture d'une application est importante, car cela définie sa maintenabilité et son évolutivité.
 De plus cela permet la séparation des problèmes diminuant ainsi la complexité.
 
-Notre application est divisée en 3 couches, appelé \textit{3-tiers}, qui est le modèle multi-tiers le plus utilisé.
+Notre application est divisée en 3 couches, appelée \textit{3-tiers}, qui est le modèle multi-tiers le plus utilisé.
 Cela permet de séparer l'accès aux données de la base, la partie métier effectuant les traitements, et l'interface de l'utilisateur, comme le représente la figure \ref{architecture_3_tiers}.
 \begin{figure}[!h]
 	\center
@@ -116,7 +116,7 @@ De plus, il est possible de connecter l'application à un LDAP.
 Le \textit{LDAP}, pour Lightweight Directory Access Protocol, est un protocole standard de gestion d'utilisateurs.
 Son objectif est de centraliser les informations des utilisateurs (nom, identifiant, mot de passe, \ldots) dans un annuaire.
 
-Le principal avantage de cette solution est la mise en commun des comptes utilisateurs, ce qui permet l'utilisateur d'un seul et même compte pour tous les services connectés : Windows, la boite mail Outlook, cette application, \ldots.
+Le principal avantage de cette solution est la mise en commun des comptes utilisateurs, ce qui permet l'utilisation d'un seul et même compte pour tous les services connectés : Windows, la boite mail Outlook, cette application, \ldots
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -135,10 +135,11 @@ Ceux-ci peuvent prendre trois valeurs :
 \end{itemize}
 
 Un \textit{profil} est un ensemble de droits, qui permet de définir un périmètre d'action.
-Par exemple un profil "administrateur" aura tous les droits dans l'application, un profil "manager" n'aura que des droits de lecture, ou encore un profil "ressource humaine" possèdera les droits liés aux candidats et contrats, \ldots
+Par exemple un profil "administrateur" aura tous les droits dans l'application, un profil "manager" n'aura que des droits de lecture, ou encore un profil "ressources humaines" possèdera les droits liés aux candidats et contrats, \ldots
 
 Chaque utilisateur possède un ou plusieurs profils, ce qui permet de définir l'ensemble de ses droits.
-L'utilisation de profils plutôt que de directement de droit permet un gain de temps, car la personne administrant les utilisateurs n'aura pas à affecter les nombreux droits aux nouveaux utilisateurs, et la modification d'un profil permet d'impacter l'ensemble des utilisateurs associés.
+L'utilisation de profils, plutôt que de droit directement, permet un gain de temps.
+En effet, l'administrateur des utilisateurs n'aura pas à affecter les nombreux droits aux nouveaux utilisateurs, et la modification d'un profil permet d'impacter l'ensemble des utilisateurs associés.
 \\
 
 La figure \ref{utilisateur_profils_droits} représente le schéma UML des utilisateurs, profils et droits dans l'application.
@@ -155,7 +156,7 @@ La figure \ref{utilisateur_profils_droits} représente le schéma UML des utilis
 \label{Programmation modulaire}
 
 Un module est un projet indépendant effectuant une tâche particulière.
-Le socle offre la possibilité de programmer de façon modulaire, où chacun des modules ne possèdent (quasiment) aucunes interactions entre elles.
+Le socle offre la possibilité de programmer de façon modulaire, où chacun des modules ne possèdent (quasiment) aucune interaction entre elles.
 
 Ainsi pour programmer de manière structurée, plusieurs modules distincts ont été développés.
 Ceci permet de séparer l'implémentation de tâches distinctes.
@@ -173,7 +174,7 @@ Ceci permet de séparer l'implémentation de tâches distinctes.
 \textit{.NET Framework} est une plateforme application proposée par Microsoft.
 Cette technologie est comparable et directement concurrente de Java d'Oracle.
 
-Ce framework est constitués de nombreux composants, disposés en couches au fur et à mesure de ses versions, schématisés sur la figure \ref{NET_Framework} :
+Ce framework est constitué de nombreux composants, disposés en couches au fur et à mesure de ses versions, schématisés sur la figure \ref{NET_Framework} :
 \begin{enumerate}
 	\item Le moteur d'exécution appelé Common Language Runtime (CLR) permet de compiler le code course en un langage intermédiaire appelé Microsoft Intermediate Language (MSIL).
 Ce code est ensuite compilé à la volée lors de la première exécution grâce au compilateur "Just In Time" (JIT) ;
@@ -199,7 +200,7 @@ Il s'agit d'une évolution majeure de Visual Basic 6, introduisant notamment l'a
 De plus, le code est compilé dans le langage intermédiaire que les différents langages fonctionnant sur la machine virtuelle .Net.
 Ce langage est très proche du C\#, à la syntaxe près.
 
-Le projet a été développé dans ce langage, aussi bien la couche métier que dans la couche présentation.
+Le projet a été développé dans ce langage, aussi bien la couche métier que la couche présentation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -228,7 +229,7 @@ Les données de même nature sont stockées dans des tables, où un champ possè
 
 \subsubsection{PowerAMC}
 
-\textit{PowerAMC}\footnote{PowerAMC - Site web : \url{http://www.sybase.fr/products/modelingdevelopment/poweramc}}, version francophone de PowerDesigner, est un logiciel de modélisation de base de données produit par la société Sybase.
+\textit{PowerAMC}\footnote{PowerAMC - Site web : \url{http://www.sybase.fr/products/modelingdevelopment/poweramc}}, version francophone de PowerDesigner, est un logiciel de modélisation de bases de données produit par la société Sybase.
 Il permet d'établir facilement un modèle de données à partir de son interface graphique, visible sur la figure \ref{PowerAMC}.
 De plus, les scripts générés sont compatibles avec les différents types et versions de bases de données, ce qui permet de s'abstraire de certaines contraintes de compatibilité.
 \begin{figure}[!h]
@@ -240,13 +241,13 @@ De plus, les scripts générés sont compatibles avec les différents types et v
 
 Ce logiciel est utilisé par Sopra Group sur les différents projets.
 Je l'ai donc utilisé sur ce projet.
-Il m'a permis de concevoir, mais aussi effectuer les différentes modifications très simplement.
+Il m'a permis de concevoir, mais aussi d'effectuer les différentes modifications très simplement.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{SQL Server}
 
-Il existe de nombreux système de gestion de base de données : Oracle, MySQL, PostgreSQL, \ldots Nous avons utilisé \textit{Microsoft SQL Server}, par demande du client car il s'agit d'un standard pour Limagrain.
+Il existe de nombreux systèmes de gestion de bases de données : Oracle, MySQL, PostgreSQL, \ldots Nous avons utilisé \textit{Microsoft SQL Server}, par demande du client car il s'agit d'un standard pour Limagrain.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -254,12 +255,11 @@ Il existe de nombreux système de gestion de base de données : Oracle, MySQL, P
 
 \Jparagraph{Définition}
 
-Le "modèle relationnel" est utilisé dans les systèmes de gestion de base de données (SGBD) pour rassembler un ensemble d'informations.
+Le "modèle relationnel" est utilisé dans les systèmes de gestion de bases de données (SGBD) pour rassembler un ensemble d'informations.
 Les données (clés) sont dupliquées entre les tables et l'accès aux relations s'effectue ensuite grâce à des jointures entre les tables.
 
 Le "modèle objet", quant à lui, est utilisé dans la programmation orientée objet.
 Les données sont modélisées sous la forme d'objets, entités complexes ayant des comportements et des relations entre elles.
-\\
 
 Le \textit{mapping objet-relationnel} consiste à interfacer le modèle relationnel d'une base de données avec le modèle orienté objet d'un programme informatique.
 Généralement, une classe modélisera une table, et attribut d'objet modélisera un champ d'une table, avec un type similaire (par exemple \lstinline{String} pour \lstinline{varchar}).
@@ -267,9 +267,9 @@ Généralement, une classe modélisera une table, et attribut d'objet modéliser
 
 \Jparagraph{Entity Framework}
 
-Cette opération peut être faite à l'aide d'un framework, permettent de s'abstraire de la base de données, automatisant et réduisant ainsi la duplication de code.
-L'objectif est de faciliter le développement, augmenter la maintenabilité du programme, ou encore s'abstenir du type de base de données.
-Ainsi, la réaction, la recherche, la mise à jour, ou la suppression (opérations CRUD) de données se font de manière simplifiées voir transparentes pour l'utilisateur.
+Cette opération peut être faite à l'aide d'un framework, permettant de s'abstraire de la base de données, automatisant et réduisant ainsi la duplication de code.
+L'objectif est de faciliter le développement, augmenter la maintenabilité du programme, ou encore s'abstenir du type de bases de données.
+Ainsi, la réaction, la recherche, la mise à jour ou la suppression (opérations CRUD) de données se font de manières simplifiées voir transparentes pour l'utilisateur.
 
 Microsoft propose plusieurs framework, et c'est \textit{Entity Framework} qui a été utilisé.
 Il est intégré à Visual Studio, ce qui permet une génération et un paramétrage facile d'utilisation.
@@ -300,10 +300,10 @@ La solution consiste à utiliser un service web.
 Un \textit{service web} (ou \textit{web service}) est un programme informatique permettant la communication et l'échange d'informations entre des systèmes hétérogènes et distribués (local, réseau, internet, \ldots), exposant des fonctionnalités.
 
 L'échange d'informations entre le client et le serveur se fait par sérialisation, consistant à coder les informations contenues en mémoire.
-Cela peut se faire sous le format texte (XML, JSON, \ldots) ou même au format binaire.
+Cela peut se faire sous le format texte (XML, JSON, \ldots) ou même sous format binaire.
 L'objectif est d'échanger des données génériques et abstraites qui pourront être représentées dans n'importe quel langage.
 
-L'exemple qui suit montre un exemple de sérialisation d'un même objet sous le format XML :
+L'exemple qui suit montre la sérialisation d'un même objet sous le format XML :
 \begin{lstlisting}[language = xml]
 <menu id="file" value="File">
 	<popup>
@@ -342,18 +342,18 @@ Ce framework a été utilisé pour réaliser le service web de l'application, ex
 
 \subsubsection{WCF RIA Services}
 
-Il est souvent nécessaire de posséder une logique applicative à la fois du coté serveur et du coté client.
-C'est le cas par exemple lorsque l'on souhaite vérifier la validité des données avant de les insérer en base de données :
+Il est souvent nécessaire de posséder une logique applicative à la fois du côté serveur et du côté client.
+C'est le cas par exemple lorsque l'on souhaite vérifier la validité des données avant de les insérer en bases de données :
 \begin{enumerate}
-	\item Soit on effectue la vérification coté serveur, impliquant l'échange inutile d'informations lorsque celles-ci sont fausses ;
-	\item Soit la vérification est faite coté client, ce qui empêcherait le bon contrôle des flux d'entrée avant le traitement, ce qui pourrait amener à des erreurs ;
-	\item Soit on effectue la même vérification à la fois du coté client et du coté serveur, mais cela impose de dupliquer le même code dans les deux couches.
+	\item Soit on effectue la vérification côté serveur, impliquant l'échange inutile d'informations lorsque celles-ci sont fausses ;
+	\item Soit la vérification est faite côté client, ce qui empêcherait le bon contrôle des flux d'entrée avant le traitement, ce qui pourrait amener à des erreurs ;
+	\item Soit on effectue la même vérification à la fois du côté client et du côté serveur, mais cela impose de dupliquer le même code dans les deux couches.
 \end{enumerate}
 ~~\\
 
 Pour éviter ce problème, Microsoft propose le framework \textit{WCF RIA Services} [RIA].
-Cet outil duplique du code d'un projet pour le copier dans un autre, de façon automatiquement lors de la compilation.
-L'opération est schématisé sur la figure \ref{WCF_RIA_Services}.
+Cet outil duplique du code d'un projet pour le copier dans un autre, de façon automatique lors de la compilation.
+L'opération est schématisée sur la figure \ref{WCF_RIA_Services}.
 Ceci permet d'avoir un code métier constamment à jour sans avoir à effectuer les modifications dans les différentes couches.
 \begin{figure}[!h]
 	\center
@@ -366,8 +366,7 @@ Ceci permet d'avoir un code métier constamment à jour sans avoir à effectuer 
 
 \subsubsection{Reporting services}
 
-Microsoft fourni un outil de génération de rapports appelés \textit{Reporting services}.
-C'est un outil est intégré à la suite SQL Server.
+Microsoft fournit un outil de génération de rapports appelé \textit{Reporting services}, intégré à la suite SQL Server.
 Les fichiers source utilisés par le service se présentent sous la forme d'un fichier XML.
 Visual Studio propose un éditeur graphique simplifiant son édition, la mise en forme ainsi que la création de requêtes.
 \\
@@ -413,7 +412,7 @@ Cette technologie nécessite l'installation du plugin, qui est un sous-ensemble 
 Les applications sont ainsi cross-browser (Internet Explorer, Firefox, Chrome, \ldots) et cross-platform (Windows, mais aussi OS-X et Linux via le projet open-source Moonlight).
 De plus les applications fonctionnent dans une "sandbox" ("bac à sable") ce qui permet de garantir une sécurité accrue pour l'utilisateur.
 
-Une des spécifications de Silverlight est l'impossibilité d'appeler des services web de manière synchrone, c'est à dire que la fonction appelante attend la réponse.
+Une des spécifications de Silverlight est l'impossibilité d'appeler des services web de manière synchrone, c'est-à-dire que la fonction appelante attend la réponse.
 En effet, lors d'un appel à un service le programme continue son exécution et un événement est émis lors de la réception de la réponse.
 Cette solution permet de ne pas bloquer l'interface de l'utilisateur qui pourrait penser à un plantage de l'application.
 Mais l'inconvénient est l'augmentation de la complexité de programmation car il est nécessaire de contrôler plusieurs fils d'exécution en parallèle.
@@ -464,5 +463,5 @@ Un exemple courant est une discussion instantanée : le serveur doit informer le
 Avant l'apparition du HTML5, il était nécessaire d'utiliser des techniques JavaScript en envoyant continuellement des requêtes du client vers le serveur.
 Le HTML5 a apporté cette fonctionnalité grâce aux WebSocket, canal de communication bidirectionnel entre un navigateur web et un serveur web.
 
-Microsoft fourni une bibliothèque intégrée à ASP.NET appelée \textit{SignalR}\footnote{SignalR - Site web : \url{http://signalr.net/}} permettant l'ajout de fonctionnalités de temps réel dans une application web.
+Microsoft fournit une bibliothèque intégrée à ASP.NET appelée \textit{SignalR}\footnote{SignalR - Site web : \url{http://signalr.net/}} permettant l'ajout de fonctionnalités de temps réel dans une application web.
 Elle est basée sur les WebSocket et du JavaScript, facilitant ainsi son utilisation.
