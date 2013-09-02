@@ -114,6 +114,7 @@ Il est donc nécessaire de renouveler les clés régulièrement.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{La signature}
+\ref{La signature}
 
 La signature numérique permet de vérifier l'authenticité et la non-modification d'un message.
 
@@ -145,7 +146,7 @@ Un certificat est composé de :
 	\item une signature.
 \end{itemize}
 
-Les certificats sont signés par une autorité de certification.
+Les certificats sont signés par une autorité de certification, aussi appelé CA pour Certificat Autority, qui permet de garantir l'authenticité des certificats.
 Seule l'autorité de certification racine est auto-signée.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -162,6 +163,10 @@ Cette infrastructure est principalement dans les systèmes informatiques utilisa
 
 \subsection{EJBCA}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Utilisation dans Sides}
+
 En production, le projet Sides utilise de nombreux certificats pour sécuriser les données.
 Pour cela une PKI est utilisée permettant la gestion des nombreux certificats.
 
@@ -169,23 +174,68 @@ Lorsque l'on souhaite tester l'application avant la mise en production, il est n
 La mise en place d'une PKI peut s'avérer fastidieuse à intégrer et paramétrer pour fournir les mêmes services que la PKI de production.
 
 Pour cela une PKI a été déployée sur les serveurs de tests, fournissant ainsi les fonctionnalités minimales utiles, notamment la production de certificats.
+La PKI open-source EJBCA est utilisée par l'équipe Sides et le client pour gérer des certificats de test.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Documentation}
+
+Mon second objectif dans l'équipe Sides a été de rédiger une documentation de production de certificats en utilisant EJBCA.
+Ces certificats doivent respecter les spécifications d'ICAO\footnote{ICAO - Site web : \url{http://www.icao.int}}, International Civil Aviation Organization, qui définissent les procédures et conseils destinés aux états et fournisseurs de solutions de PKI.
+
+La documentation sera utilisée par le client pour produire ses certificats de tests.
+Elle devait donc être la plus précise possible, détaillant toutes les étapes de la création, en spécifiant chacun des paramètres et options.
 \\
 
+J'ai tout d'abord défini deux profils de certificat.
+Ces profils définissent les options des certificats qui seront ensuite créés : le CSCA et le DS.
 
+Le \textit{CSCA}, pour Country Signing Certificate Autority, est le certificat de plus haut niveau, utilisé par le le pays.
+Il s'agit plus du plus critique car de lui dépend tous les autres certificats utilisés.
+Dans certains pays, celui-ci est stocké dans un ordinateur portable situé dans un coffre fort, qui est ouvert en cas de besoin notamment lors du renouvellement des certificats.
+
+Le \textit{DS}, pour Document Signer, est utilisé pour signer les documents sécurisés.
+Il est situé au second niveau dans la hiérarchie des certificats, et est signé par le certificat racine CSCA.
+
+TODO c'est ça qu'on génère ou c'est encore en dessous ?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Le SOD}
+
+Le \textit{SOD}, Document Security Object, est la signature d'un document.
+Cette signature est générée en utilisant la clé privée d'un certificat de type DS, présenté dans la section précédente.
+
+Dans ce cadre j'ai travaillé sur le SOD des cartes à puce.
+Ces cartes à puces contiennent :
+\begin{enumerate}
+	\item 16 groupes de données (DG, pour Data Group), contenant les informations, comme l'identité et la photo d'une personne ;
+	\item la signature des données appelée SOD, créée à partir des différents DG.
+\end{enumerate}
+
+Le SOD permet de vérifier que les données de la carte à puce n'ont pas été modifiées ou altérées.
+Le processus de vérification est similaire à la vérification de la signature d'un message présenté dans la section \ref{La signature} :
+\begin{itemize}
+	\item On déchiffre le SOD avec la clé privée du DS ;
+	\item On hache les 16 DG ;
+	\item Si les deux valeurs sont égales alors les données sont correctes.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Documentation de fonctionnement}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Projet de test}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Documentation SOD}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Projet de test du SOD}
 
 
 
