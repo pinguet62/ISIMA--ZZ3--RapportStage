@@ -79,7 +79,15 @@ La solution permettant de sécuriser les données consiste à chiffrer ou signer
 \subsubsection{Le chiffrement}
 
 Pour assurer que personne ne puisse découvrir le message échangé entre deux personnes il est nécessaire de les chiffrer.
-Le fonctionnement est le suivant, schématisé par la figure \ref{chiffrement} :
+
+Cette méthode utilise deux entités : un couple de clés composé d'une clé publique ($K$) et d'une clé privée ($K'$), et un algorithme mathématique composé d'une fonction ($F$) et de sa réciproque ($F'$).
+Le chiffrement consiste à utiliser une clé dans l'algorithme, et le déchiffrement à utiliser la fonction inverse avec l'autre clé pour retrouver les données d'origine, comme le résume la fonction suivant :
+\[
+F_K[\ F_{K'}(M)\ ] = M = F'_{K'}[\ F_K(M)\ ]
+\]
+\\
+
+Le fonctionnement de l'échange d'un message chiffré est le suivant, schématisé par la figure \ref{chiffrement} :
 \begin{enumerate}
 	\item Bob possède une paire de clé publique/privée, et Alice désire envoyer un message à Bob ;
 	\item Bob envoie sa clé publique à Alice ;
@@ -97,9 +105,10 @@ Le fonctionnement est le suivant, schématisé par la figure \ref{chiffrement} :
 
 La sécurité est basée sur deux principes : le chiffrement et la confidentialité.
 
-Si l'algorithme de chiffrement est trop faible ou que la clé est trop petite alors les données peuvent être découverte par "brute force", c'est à dire en essayant toutes les combinaisons possibles.
+Si l'algorithme de chiffrement est trop faible alors il sera possible de déchiffrer les données par calcul mathématiques.
+De plus, si la clé de chiffrement est trop petite alors la méthode "brute force", consistant à essayer toutes les combinaisons possibles, permettra aussi le déchiffrement
 
-Si la clé privée du certificat est découverte alors les données seront instantanément déchiffrées.
+Si la clé privée du certificat est découverte alors les données seront instantanément déchiffrées, ainsi que les futurs messages.
 Il est donc nécessaire de renouveler les clés régulièrement.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,6 +116,10 @@ Il est donc nécessaire de renouveler les clés régulièrement.
 \subsubsection{La signature}
 
 La signature numérique permet de vérifier l'authenticité et la non-modification d'un message.
+
+Cette méthode utilise une fonction hachage qui a pour objectif de créer une empreinte à taille fixe.
+Les algorithmes de hachage les plus utilisés sont MP5 et SHA.
+\\
 
 Le fonctionnement est le suivant, schématisé par la figure \ref{signature} :
 \begin{enumerate}
@@ -120,7 +133,6 @@ Le fonctionnement est le suivant, schématisé par la figure \ref{signature} :
 	\caption{Échange d'un message signé}
 	\label{signature}
 \end{figure}
-~~\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -140,25 +152,34 @@ Seule l'autorité de certification racine est auto-signée.
 
 \subsubsection{La PKI}
 
-Une \textit{infrastructure à clés publiques}, aussi appelé \textit{public key infrastructure}, permet la gestion de grandes quantités de certificats ou clés publiques.
+Une \textit{infrastructure à clés publiques}, aussi appelé par son terme anglais \textit{public key infrastructure}, permet la gestion de grandes quantités de certificats ou clés publiques.
 Elle fournie des services de création, de publication et de révocation de certificats.
+Cette infrastructure est principalement dans les systèmes informatiques utilisant de nombreux certificats.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{EJBCA}
+
+En production, le projet Sides utilise de nombreux certificats pour sécuriser les données.
+Pour cela une PKI est utilisée permettant la gestion des nombreux certificats.
+
+Lorsque l'on souhaite tester l'application avant la mise en production, il est nécessaire de pouvoir produire des certificats.
+La mise en place d'une PKI peut s'avérer fastidieuse à intégrer et paramétrer pour fournir les mêmes services que la PKI de production.
+
+Pour cela une PKI a été déployée sur les serveurs de tests, fournissant ainsi les fonctionnalités minimales utiles, notamment la production de certificats.
+\\
 
 
 
-
-
-
-
-
-PKI
-Application : utilisation de certificats
-SOD : permet de générer des certificats sans PKI pour tester les applications
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Documentation SOD}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
