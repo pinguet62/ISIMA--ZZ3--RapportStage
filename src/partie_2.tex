@@ -114,7 +114,7 @@ Il est donc nécessaire de renouveler les clés régulièrement.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{La signature}
-\ref{La signature}
+\label{La signature}
 
 La signature numérique permet de vérifier l'authenticité et la non-modification d'un message.
 
@@ -187,8 +187,8 @@ La documentation sera utilisée par le client pour produire ses certificats de t
 Elle devait donc être la plus précise possible, détaillant toutes les étapes de la création, en spécifiant chacun des paramètres et options.
 \\
 
-J'ai tout d'abord défini deux profils de certificat.
-Ces profils définissent les options des certificats qui seront ensuite créés : le CSCA et le DS.
+Un profil définie les paramètres que les certificats, qui l'implémentent, devront définir.
+J'ai tout d'abord créé deux profils qui seront utilisés pour le CSCA et le DS.
 
 Le \textit{CSCA}, pour Country Signing Certificate Autority, est le certificat de plus haut niveau, utilisé par le le pays.
 Il s'agit plus du plus critique car de lui dépend tous les autres certificats utilisés.
@@ -197,7 +197,17 @@ Dans certains pays, celui-ci est stocké dans un ordinateur portable situé dans
 Le \textit{DS}, pour Document Signer, est utilisé pour signer les documents sécurisés.
 Il est situé au second niveau dans la hiérarchie des certificats, et est signé par le certificat racine CSCA.
 
-TODO c'est ça qu'on génère ou c'est encore en dessous ?
+Des certificats, composés d'une clé publique et une clé privée, peuvent ensuite être créés.
+Ils peuvent être téléchargés sous le format PKCS\#12 qui est un fichier à l'extension ".p12".
+L'utilisateur peut ensuite l'utiliser ou l'installer sur son environnement.
+
+La figure \ref{hierarchie_CSCA_DS} représente la hiérarchie des différents certificats utilisés.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=0.3\textwidth]{img/hierarchie_CSCA_DS.png}
+	\caption{Hiérarchie des certificats}
+	\label{hierarchie_CSCA_DS}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -208,37 +218,59 @@ TODO c'est ça qu'on génère ou c'est encore en dessous ?
 Le \textit{SOD}, Document Security Object, est la signature d'un document.
 Cette signature est générée en utilisant la clé privée d'un certificat de type DS, présenté dans la section précédente.
 
-Dans ce cadre j'ai travaillé sur le SOD des cartes à puce.
+Dans ce cadre j'ai travaillé sur le SOD des cartes à puce, plus particulièrement sur la création de la signature.
 Ces cartes à puces contiennent :
 \begin{enumerate}
-	\item 16 groupes de données (DG, pour Data Group), contenant les informations, comme l'identité et la photo d'une personne ;
-	\item la signature des données appelée SOD, créée à partir des différents DG.
+	\item des données, disposées dans seize groupes (DG, pour Data Group), contenant les informations comme l'identité et la photo d'une personne ;
+	\item la signature des données appelée SOD, créée à partir des différents DG et d'un certificat.
 \end{enumerate}
 
 Le SOD permet de vérifier que les données de la carte à puce n'ont pas été modifiées ou altérées.
 Le processus de vérification est similaire à la vérification de la signature d'un message présenté dans la section \ref{La signature} :
 \begin{itemize}
-	\item On déchiffre le SOD avec la clé privée du DS ;
-	\item On hache les 16 DG ;
+	\item On déchiffre le SOD avec la clé publique du DS ;
+	\item On hache les données contenues dans les DGs ;
 	\item Si les deux valeurs sont égales alors les données sont correctes.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Documentation de fonctionnement}
+\label{Documentation de fonctionnement}
+
+Dans ce contexte, j'ai rédigé une documentation permettant d'expliquer comment créer la signature à partie des différents groupes de données (DG).
+La création utilise une application web qui prend en paramètre les valeurs hexadécimales des groupes de données.
+La signature est ensuite retournée sous la forme d'un fichier binaire.
+Le figure \ref{processus_SOD} schématise le processus de création de la signature SOD.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=0.2\textwidth]{img/processus_SOD.png}
+	\caption{Processus de création du SOD}
+	\label{processus_SOD}
+\end{figure}
+
+Une page HTML, dont une capture d'écran est présente sur la figure \ref{saisie_DGs}, permet de faciliter la saisie manuelle des données et l'appel au service en proposant respectivement des zones de saisie et un bouton de soumission.
+La fenêtre de téléchargement s'affiche ensuite pour proposer d'ouvrir ou de sauvegarder le fichier constituant la signature.
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=0.2\textwidth]{img/saisie_DGs.png}
+	\caption{Page HTML de saisie des groupes de données}
+	\label{saisie_DGs}
+\end{figure}
+
+Il est aussi possible d'appeler le service de manière automatique depuis un programme.
+Pour expliquer cela j'ai développé un exemple de script Python permettant de générer une signature.
+\begin{lstlisting}[language = sh]
+TODO
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Projet de test}
+\subsubsection{Application de test}
 
+L'application web de création de signature est développée en JEE (Java Enterprise Edition).
+Une \textit{servlet} est une classe java appelée lors d'une requête HTTP et permet de générer dynamiquement des données (généralement des pages HTML).
+Le projet web fournie plusieurs servlets permettant d'utiliser plusieurs méthodes de signature, comme la connexion à un HSM (Hardware Security Module) ou l'utilisation de certificat PKCS\#12 décrit précédemment.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-~~\\--------------------------------------~~\\
-TODO:
-SOD : documentation + exemples
+Dans l'objectif de fournir au client une application permettant de tester la création de signature SOD à partir d'un certificat PKCS\#12, j'ai modifié le projet web initial pour ne garder que la fonctionnalité correspondante.
+L'épuration du code source et la correction de certains bugs ont permis de produire une solution fonctionnelle qui fourni les services de signature de données décrites dans la partie \ref{Documentation de fonctionnement}.
