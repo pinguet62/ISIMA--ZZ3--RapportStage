@@ -115,7 +115,7 @@ L'écran d'accueil de la gestion affiche la hiérarchie des instances, présent�
 Des boutons d'action permettent d'agir sur l'instance sélectionnée.
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.8\textwidth]{img/instances_managing.png}
+	\includegraphics[width=1\textwidth]{img/instances_managing.png}
 	\caption{Managing des instances}
 	\label{instances_managing}
 \end{figure}
@@ -139,7 +139,7 @@ Cela permet à l'utilisateur de connaître quelle instance il manipule et où el
 La figure \ref{instances_modification} est une capture d'écran de la fenêtre de modification d'une division.
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.4\textwidth]{img/instances_modification.png}
+	\includegraphics[width=1\textwidth]{img/instances_modification.png}
 	\caption{Modification d'un domaine}
 	\label{instances_modification}
 \end{figure}
@@ -156,7 +156,7 @@ Les deux listes sont complémentaires, c'est-à-dire que l'association d'un util
 L'association se fait en sélectionnant des utilisateurs dans une des liste puis en cliquant sur le bouton "flèche du haut" ou "flèche du bas" pour ajouter ou retirer des utilisateurs.
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.4\textwidth]{img/instances_utilisateurs.png}
+	\includegraphics[width=1\textwidth]{img/instances_utilisateurs.png}
 	\caption{Association d'utilisateurs à une instance}
 	\label{instances_utilisateurs}
 \end{figure}
@@ -189,21 +189,38 @@ L'écran d'affectation des droits diffère uniquement sur les données affichée
 
 \subsection{Différents niveaux}
 
-Il existe deux types de profils : les profils dits spécifiques qui est propre à un client, et les profils dits communs qui sont présent chez l'ensemble des clients.
+Il existe deux types de profils dans l'application :
+\begin{itemize}
+	\item les profils dits "spécifiques" qui sont propres à un client ;
+	\item les profils dits "communs" qui sont présent chez l'ensemble des clients.
+\end{itemize}
+Leur gestion varie en fonction du niveau dans lequel il se trouve.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Administration}
+\label{IN_GestionDesProfils_DifférentsNiveaux_Administration}
 
-Dans le niveau administration, propre à un client, il n'est possible de modifier l'affectation  que l'affectation des utilisateurs aux profils communs.
- 
+Dans le niveau administration, propre à un client, les profils communs ont une gestion très limitée : il n'est possible de modifier que l'affectation des utilisateurs.
+Ces profils sont proposés pour fournir des "profils de base" que les clients pourront affecter aux utilisateurs dans le cadre d'une utilisation simple de l'application.
 
-Les profils dits "PGIN" sont ceux
-
-CMS : PGIN ou Commun
+Concernant les profils spécifiques, il est possible d'en créer des nouveaux, de les supprimer, et de modifier l'affectation de droits et utilisateurs.
+Chaque client peut ensuite personnaliser ses accès et restrictions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{PGIN}
 
-PGIN : PGIN (Super PGIN ou PGIN) et Commun
+\Jparagraph{Spécifique}
+Les profils spécifiques permettent d'administrer les droits dans la partie PGIN de l'application.
+
+\Jparagraph{Commun}
+Les profils communs demandent des opérations plus complexes dans la base de données.
+En effet, un profil commun est dupliqué sur l'ensemble des clients, et il est nécessaire que ces profils soient tous identiques.
+Une action sur un profil commun dans le niveau PGIN devra donc être répercutée chez chacun des clients.
+
+Une problématique importante s'est soulevée lors de l'implémentation des fonctionnalités : retrouver le profil commun.
+Habituellement un profil est identifié par un identifié unique : la clé primaire.
+Or lorsque l'on va créer un nouveau profil commun celui-ci n'aura pas le même identifiant dans chacune des tables, en raison du fait que les identifiants sont auto-générés.
+La solution que j'ai utilisée est d'identifier le profil par une clé alternative, c'est à dire une valeur unique : le nom.
+Ce nom n'est modifiable par aucun client, comme expliqué précédemment dans la partie \ref{IN_GestionDesProfils_DifférentsNiveaux_Administration}, ce qui permet d'utiliser le nom pour retrouver les différents profils communs dans les tables des clients.

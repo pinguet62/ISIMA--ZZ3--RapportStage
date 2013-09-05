@@ -11,7 +11,7 @@
 \section{Présentation}
 
 \textit{Sides} est un projet de gestion de titres développé par Sopra Group, plus particulièrement par l'agence de Clermont Ferrand.
-Il permet de produire des passeports ou des cartes d'identités pour une dizaine de différents gouvernement comme les Philippines, la Belgique, Monaco, \ldots
+Il permet de produire des passeports ou des cartes d'identités pour une dizaine de différents gouvernement comme les Philippines, la Lituanie, la Belgique, Monaco, \ldots
 \\
 
 Pour chacun des pays et titres, une application a été développée.
@@ -35,7 +35,7 @@ L'objectif est de corriger les bugs éventuels ou d'ajouter de nouvelles fonctio
 
 \subsection{Contexte}
 
-L'application Sides à destination des Philippines permet la gestion de passeports.
+L'application Sides à destination de la Lituanie permet la gestion de passeports.
 Ces passeports nécessitent la lecture des empreintes du porteur pour être valides.
 Lorsque les porteurs sont des personnes diplomatiques ou haut placées, celles-ci désireraient ne pas perdre de temps lors de création ou renouvellement de titres.
 
@@ -204,7 +204,7 @@ L'utilisateur peut ensuite l'utiliser ou l'installer sur son environnement.
 La figure \ref{hierarchie_CSCA_DS} représente la hiérarchie des différents certificats utilisés.
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.3\textwidth]{img/hierarchie_CSCA_DS.png}
+	\includegraphics[width=0.5\textwidth]{img/hierarchie_CSCA_DS.png}
 	\caption{Hiérarchie des certificats}
 	\label{hierarchie_CSCA_DS}
 \end{figure}
@@ -244,7 +244,7 @@ La signature est ensuite retournée sous la forme d'un fichier binaire.
 Le figure \ref{processus_SOD} schématise le processus de création de la signature SOD.
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.2\textwidth]{img/processus_SOD.png}
+	\includegraphics[width=0.8\textwidth]{img/processus_SOD.png}
 	\caption{Processus de création du SOD}
 	\label{processus_SOD}
 \end{figure}
@@ -253,7 +253,7 @@ Une page HTML, dont une capture d'écran est présente sur la figure \ref{saisie
 La fenêtre de téléchargement s'affiche ensuite pour proposer d'ouvrir ou de sauvegarder le fichier constituant la signature.
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.2\textwidth]{img/saisie_DGs.png}
+	\includegraphics[width=0.6\textwidth]{img/saisie_DGs.png}
 	\caption{Page HTML de saisie des groupes de données}
 	\label{saisie_DGs}
 \end{figure}
@@ -261,7 +261,21 @@ La fenêtre de téléchargement s'affiche ensuite pour proposer d'ouvrir ou de s
 Il est aussi possible d'appeler le service de manière automatique depuis un programme.
 Pour expliquer cela j'ai développé un exemple de script Python permettant de générer une signature.
 \begin{lstlisting}[language = sh]
-TODO
+import urllib
+
+# parameters
+params = urllib.urlencode({"dataGroup1": "02468ACE",
+                           "dataGroup2": "13579BDF"})
+
+# invoke with POST parameters
+dataPOST = urllib.urlopen("http://localhost:8080/sod", params)
+
+# saving SOD
+fileSOD = open("D:\\Desktop\\sod.out", 'w')
+fileSOD.write(dataPOST.read())
+fileSOD.close()
+
+dataPOST.close()
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
