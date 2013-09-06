@@ -10,15 +10,14 @@
 
 \section{Présentation}
 
-\textit{Sides} est un projet de gestion de titres développé par Sopra Group, plus particulièrement par l'agence de Clermont Ferrand.
-Il permet de produire des passeports ou des cartes d'identités pour une dizaine de différents gouvernement comme les Philippines, la Lituanie, la Belgique, Monaco, \ldots
+\textit{Sides} est un projet de gestion de titres sécurisés conçu par Sopra Group, plus particulièrement par l'agence de Clermont Ferrand.
+Il permet de produire des passeports ou des cartes d'identités pour une quinzaine de gouvernements comme les Philippines, la Lituanie, la Belgique, Monaco, \ldots
 \\
 
 Pour chacun des pays et titres, une application a été développée.
-Plutôt que de redévelopper la même application, un nouveau projet a vu le jour : \textit{SITI}.
-Cette solution pourra ensuite être vendue à divers pays sans avoir à la ré-implémenter à nouveau.
+Il existe cependant une base commune pour plusieurs projets, mutualisant notamment pour les périphériques, l'intégration avec la base de données, les calculs mathématiques et le traitement des images.
 
-Actuellement l'équipe Sides n'effectue que de la tiers maintenance applicative (TMA) sur les différentes applications existantes.
+Actuellement l'équipe Sides n'effectue que de la tierce maintenance applicative (TMA) sur les différentes applications existantes.
 L'objectif est de corriger les bugs éventuels ou d'ajouter de nouvelles fonctionnalités.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,7 +26,7 @@ L'objectif est de corriger les bugs éventuels ou d'ajouter de nouvelles fonctio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Chargement d'empreintes}
+\section{Sides Lituanie : modification de la capture des empreintes digitales}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,22 +54,25 @@ Pour sécuriser l'application et le chargement d'anciennes empreintes, l'évolut
 
 Pour réaliser ce contrôle, j'ai dû étudier le fonctionnement de l'application pour comprendre le processus de chargement des empreintes dans une nouvelle demande de passeport.
 
+Il était nécessaire d'ajouter une nouvelle entrée dans le fichier de configuration définissant le nombre de jours durant lesquels les empreintes peuvent servir à renouveler un passeport.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Les certificats}
+\section{Signature des données de la puce des passeports}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Contexte}
+\subsection{Pré-requis}
 
 La gestion des identités de personnes, au niveau national, est un domaine très sensible qui requière une sécurité élevée des systèmes informatiques.
-La solution permettant de sécuriser les données consiste à chiffrer ou signer les données échangées, garantissant ainsi que les données ne pourront être découverte ou qu'elles n'ont pas été modifiée ou envoyées par une personne tiers. Ce chiffrement s'effectue grâce à des certificats.
+La solution permettant de sécuriser les données consiste à chiffrer ou signer les données échangées, garantissant ainsi que les données ne pourront être découverte ou qu'elles n'ont pas été modifiée ou envoyées par une personne tiers.
+Ce chiffrement s'effectue grâce aux clés des certificats.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -187,7 +189,7 @@ La documentation sera utilisée par le client pour produire ses certificats de t
 Elle devait donc être la plus précise possible, détaillant toutes les étapes de la création, en spécifiant chacun des paramètres et options.
 \\
 
-Un profil définie les paramètres que les certificats, qui l'implémentent, devront définir.
+Afin de définir les paramètres que les certificats implémenteront, il est possible de définir des profils.
 J'ai tout d'abord créé deux profils qui seront utilisés pour le CSCA et le DS.
 
 Le \textit{CSCA}, pour Country Signing Certificate Autority, est le certificat de plus haut niveau, utilisé par le le pays.
@@ -213,7 +215,7 @@ La figure \ref{hierarchie_CSCA_DS} représente la hiérarchie des différents ce
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Le SOD}
+\subsection{Document security object}
 
 Le \textit{SOD}, Document Security Object, est la signature d'un document.
 Cette signature est générée en utilisant la clé privée d'un certificat de type DS, présenté dans la section précédente.
@@ -225,7 +227,7 @@ Ces cartes à puces contiennent :
 	\item la signature des données appelée SOD, créée à partir des différents DG et d'un certificat.
 \end{enumerate}
 
-Le SOD permet de vérifier que les données de la carte à puce n'ont pas été modifiées ou altérées.
+Le SOD permet de vérifier que les données de la carte à puce n'ont pas été modifiées ou altérées, garantissant ainsi l'authenticité des passeports produits par le système Sides.
 Le processus de vérification est similaire à la vérification de la signature d'un message présenté dans la section \ref{La signature} :
 \begin{itemize}
 	\item On déchiffre le SOD avec la clé publique du DS ;
@@ -235,11 +237,23 @@ Le processus de vérification est similaire à la vérification de la signature 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsubsection{Application de test}
+
+L'application web de création de signature est développée en JEE (Java Enterprise Edition).
+Une \textit{servlet} est une classe java appelée lors d'une requête HTTP et permet de générer dynamiquement des données (généralement des pages HTML).
+Le projet web fournie plusieurs servlets permettant d'utiliser plusieurs méthodes de signature, comme la connexion à un HSM (Hardware Security Module) ou l'utilisation de certificat PKCS\#12 décrit précédemment.
+
+Dans l'objectif de fournir au client une application permettant de tester la création de signature SOD à partir d'un certificat PKCS\#12, j'ai modifié le projet web initial pour ne garder que la fonctionnalité correspondante.
+L'épuration du code source et la correction de certains bugs ont permis de produire une solution fonctionnelle qui fourni les services de signature de données décrites dans la partie \ref{Documentation de fonctionnement}.
+Il était nécessaire que je travaille sur le fichier de configuration utilisé par le programme pour que celui-ci puisse être utilisé par l'utilisateur sans difficultés.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Documentation de fonctionnement}
 \label{Documentation de fonctionnement}
 
-Dans ce contexte, j'ai rédigé une documentation permettant d'expliquer comment créer la signature à partie des différents groupes de données (DG).
-La création utilise une application web qui prend en paramètre les valeurs hexadécimales des groupes de données.
+Ensuite, j'ai rédigé une documentation permettant d'expliquer comment créer la signature à partie des différents groupes de données (DG).
+La création utilise l'application web déployée par le client, qui prend en paramètre les valeurs hexadécimales des groupes de données.
 La signature est ensuite retournée sous la forme d'un fichier binaire.
 Le figure \ref{processus_SOD} schématise le processus de création de la signature SOD.
 \begin{figure}[!h]
@@ -277,14 +291,3 @@ fileSOD.close()
 
 dataPOST.close()
 \end{lstlisting}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection{Application de test}
-
-L'application web de création de signature est développée en JEE (Java Enterprise Edition).
-Une \textit{servlet} est une classe java appelée lors d'une requête HTTP et permet de générer dynamiquement des données (généralement des pages HTML).
-Le projet web fournie plusieurs servlets permettant d'utiliser plusieurs méthodes de signature, comme la connexion à un HSM (Hardware Security Module) ou l'utilisation de certificat PKCS\#12 décrit précédemment.
-
-Dans l'objectif de fournir au client une application permettant de tester la création de signature SOD à partir d'un certificat PKCS\#12, j'ai modifié le projet web initial pour ne garder que la fonctionnalité correspondante.
-L'épuration du code source et la correction de certains bugs ont permis de produire une solution fonctionnelle qui fourni les services de signature de données décrites dans la partie \ref{Documentation de fonctionnement}.

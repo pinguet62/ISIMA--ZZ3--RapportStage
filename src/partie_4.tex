@@ -8,9 +8,36 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Le contexte}
+
+L'objectif du projet est de concevoir une solution de gestion d'identité numérique.
+Ces identités sont stockées sur des supports physiques, tels que des badges ou des cartes à puce.
+Des services seront proposés à ces supports, il peut s'agir par exemple d'accès à un bâtiment, de chiffrement ou de signature de données sensibles, \ldots
+\\
+
+L'Imprimerie Nationale désire vendre cette solution à divers clients dans le but de leur produire leurs supports.
+L'architecture retenue sera donc \textit{multi-tenant}, c'est-à-dire que chaque client possèdera ses propres données.
+Cette solution sera hébergée à l'Imprimerie Nationale et chacun des clients pourra se connecter à l'application pour gérer ses supports et services.
+\\
+
+Ce projet est réalisé par plusieurs sociétés :
+\begin{itemize}
+	\item Keynectis pour l'infrastructure de gestion de clés
+	\item Dictao pour l'activation des cartes à puce ;
+	\item l'Imprimerie Nationale pour la personnalisation des identités ;
+	\item et Sopra Group pour le développement du système de gestion d'identités.
+\end{itemize}
+L'équipe du projet est composé d'une quinzaine de personnes, majoritairement de l'agence de Clermont Ferrand, mais dont certains étaient rattachés à l'agence de Lyon ou Grenoble.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{L'administration}
 
-L'application est divisée en divers niveaux afin d'apporter une gestion fine.
+L'application est divisée en divers niveaux afin de séparer les différentes fonctionnalités.
 La figure \ref{niveaux_administration} représente les différents niveaux présentés dans cette section.
 \begin{figure}[!h]
 	\center
@@ -29,6 +56,8 @@ Le \textit{Front Office} (FO) est la partie accessible par les utilisateurs fina
 Elle propose les principales fonctionnalités principales de l'application.
 Dans notre cas il s'agit des fonctions de gestion des supports : demande, validation, révocation, \ldots
 
+% TODO détailler demande, validation, révocation
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,16 +68,12 @@ Le \textit{Back Office} (BO) est quant à lui destinée aux administrateurs de l
 L'objectif de cette partie est de gérer les utilisateurs et droits, mais aussi de gérer les données "statiques" qui apparaitront dans la partie front office comme par exemple l'ensemble des supports disponibles.
 
 Il s'agit du niveau sur lequel j'ai travaillé durant mon stage et que je vous présenterai dans ce chapitre.
-\\
-
-L'imprimerie nationale souhaite proposer cette application à divers clients.
-L'architecture sera donc \textit{multi-tenant}, c'est-à-dire que chaque client possèdera son propre utilisateur et ses problèmes tables dans la base de données.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Administration}
 
-Il est nécessaire que chaque client puisse administrer ses proposer données qui lui sont propre, sans impacter les données des autres clients.
+Il est nécessaire que chaque client puisse administrer les proposer données qui lui sont propre, sans impacter les données des autres clients.
 Pour cela un niveau "Administrateur" a été mis en place.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -59,7 +84,8 @@ L'imprimerie va produire des cartes pour l'ensemble de ses clients.
 Ainsi des données seront communes à chacune des clients et il est nécessaire de pouvoir les gérer efficacement.
 De plus, il est nécessaire de pouvoir administrer l'application de chacun des clients, en cas de problème ou pour effectuer des maintenances.
 
-Dans cet objectif, un niveau "PGIN" (signifiant TODO PG Imprimerie Nationale) a été mis en place afin d'administrer l'ensemble des données des clients.
+Dans cet objectif, un niveau "PGIN" (signifiant Plateforme de Personnalisation de l'Identité Numérique) a été mis en place afin d'administrer l'ensemble des données des clients.
+Il s'agit d'un niveau "super administrateur" au niveau de l'Imprimerie Nationale.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,7 +147,7 @@ Des boutons d'action permettent d'agir sur l'instance sélectionnée.
 \end{figure}
 ~~\\
 
-La suppression d'une instance se fait simplement en sélectionnant une instance dans la hiérarchie de l'écran puis en cliquant sur le bouton "Supprimer".
+La suppression d'une instance se fait en sélectionnant une instance dans la hiérarchie de l'écran puis en cliquant sur le bouton "Supprimer".
 Pour des raisons de sécurité, il est impossible de supprimer une instance si celle-ci possède des liens avec d'autres données dans la base de données.
 Par exemple il est impossible de supprimer une division s'il existe des domaines sous-jacents.
 
@@ -130,10 +156,10 @@ Par exemple il est impossible de supprimer une division s'il existe des domaines
 \subsubsection{Affichage, modification et création}
 
 Dans ce type d'actions, il existe deux types d'écran.
-L'affichage affiche simplement les valeurs des différents champs.
-Les écrans de création et modification affichent quand à eux une zone de saisie, où les champs sont pré-remplies par la valeur dans le cas d'une modification.
+L'affichage montre simplement à l'utilisateur les valeurs des différents champs.
+Les écrans de création et modification proposent quand à eux une zone de saisie, où les champs sont pré-remplies par la valeur dans le cas d'une modification.
 
-Dans les trois cas il est possible d'afficher les informations des instances parentes en cliquant sur l'onglet correspondant.
+Dans les trois cas, l'utilisateur a accès aux informations des instances parentes en cliquant sur l'onglet correspondant.
 Par exemple lorsque l'on modifie une division, la division et la compagnie sont affichées (sans modification possible).
 Cela permet à l'utilisateur de connaître quelle instance il manipule et où elle se situe dans la hiérarchie.
 La figure \ref{instances_modification} est une capture d'écran de la fenêtre de modification d'une division.
@@ -177,7 +203,7 @@ L'association se fait en sélectionnant des utilisateurs dans une des liste puis
 
 Les différentes restrictions dans l'application sont gérées par des droits.
 En fonction des droits que possède l'utilisateur, celui-ci verra des entrées dans les menus, des boutons d'action, \ldots cachés.
-Cette gestion des droits se fait finement par l'intermédiaire des profils, comme détaillé dans la section \ref{Gestion des droits}.
+Cette gestion des droits se fait finement par l'intermédiaire des profils, comme détaillé dans le chapitre précédent \ref{Gestion des droits}.
 \\
 
 L'écran d'affectation des utilisateurs est identique à celui de la figure \ref{instances_utilisateurs}.
@@ -224,3 +250,17 @@ Habituellement un profil est identifié par un identifié unique : la clé prima
 Or lorsque l'on va créer un nouveau profil commun celui-ci n'aura pas le même identifiant dans chacune des tables, en raison du fait que les identifiants sont auto-générés.
 La solution que j'ai utilisée est d'identifier le profil par une clé alternative, c'est à dire une valeur unique : le nom.
 Ce nom n'est modifiable par aucun client, comme expliqué précédemment dans la partie \ref{IN_GestionDesProfils_DifférentsNiveaux_Administration}, ce qui permet d'utiliser le nom pour retrouver les différents profils communs dans les tables des clients.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Résultats}
+
+Actuellement mes différents écrans répondent aux besoins du client.
+Ils proposent une partie des fonctionnalités présentes dans la partie back office de l'application permettant d'administrer les droits et les instances.
+
+Le projet a été livré à la fin du mois d'août au client.
+Actuellement en phase de qualification, l'application sera mise en production à la fin du mois de septembre pour être proposée à d'éventuelles sociétés.
